@@ -1,4 +1,4 @@
-<li id ="li-comment-{{$comment->id}}" class="comment {{ ($comment->userIsLogIn() && $comment->user->isAuthor($comment->article)) ? 'bypostauthor odd': 'even depth-1'}} ">
+<li id ="li-comment-{{$comment->id}}" class="comment {{ ($comment->userIsLogIn() && $comment->user->isAuthor($article)) ? 'bypostauthor odd': 'even depth-1'}} ">
     <div id ="comment-{{$comment->id}}" class="comment-container">
         <div class="comment-author vcard">
             <img alt="" src="{{$comment->getUserAvatar()}}" class="avatar" height="75" width="75" />

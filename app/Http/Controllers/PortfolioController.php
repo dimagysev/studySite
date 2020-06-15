@@ -18,7 +18,7 @@ class PortfolioController extends SiteController
 
     public function index()
     {
-        $portfolios = $this->portfolioService->getPaginatePortfolios();
+        $portfolios = $this->portfolioService->setRelations(['filters'])->getPaginatePortfolios();
         $this->data = array_merge($this->data, ['portfolios' => $portfolios]);
         return $this->renderOutput();
     }
@@ -26,7 +26,7 @@ class PortfolioController extends SiteController
     public function show($alias)
     {
         $this->template = config('settings.THEME').'.portfolio-show';
-        $portfolio = $this->portfolioService->getByAlias($alias);
+        $portfolio = $this->portfolioService->setRelations(['filters'])->getByAlias($alias);
         $otherPortfolios =$portfolio->relatedPortfolios;
         $this->title = $portfolio->title;
         $this->metaKeywords = $portfolio->meta_key;

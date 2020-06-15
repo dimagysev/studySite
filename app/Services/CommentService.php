@@ -14,8 +14,6 @@ class CommentService extends Service
 {
     use GetSidebar, BuildTree;
 
-    protected const RELATIONS = ['article', 'user'];
-
     public function __construct(Comment $comment)
     {
         $this->model = $comment;
@@ -46,7 +44,7 @@ class CommentService extends Service
      */
     public function getCommentsByArticle($article)
     {
-        $comments = $article->comments()->with(self::RELATIONS)->get();
+        $comments = $article->comments()->with($this->relations)->get();
         return $this->buildTree($comments,'parent_id');
     }
 
@@ -63,10 +61,4 @@ class CommentService extends Service
         return $article->comments()->create($comment);
     }
 
-    public function getLast(int $limit = null) : Collection
-    {
-        $comments = parent::getLast($limit);
-        $this->loadRelations($comments);
-        return $comments;
-    }
 }

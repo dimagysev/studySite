@@ -16,25 +16,30 @@ abstract class Service
 {
     protected $model;
     protected $paginate = 3;
-    protected const RELATIONS = [];
+    protected $relations = [];
+
+    /**
+     * @param array $relations
+     * @return $this
+     */
+    public function setRelations(array $relations): Service
+    {
+        $this->relations = $relations;
+        return $this;
+    }
 
     public function getLast(?int $limit = null) : Collection
     {
-        return $this->model::query()->last($limit)->get();
+        return $this->model::query()->with($this->relations)->last($limit)->get();
     }
 
     public function getByAlias(string $alias): Model
     {
-       return $this->model->where('alias', $alias)->firstOrFail();
+       return $this->model::query()->with($this->relations)->where('alias', $alias)->firstOrFail();
     }
 
     public function getById($id) : Model
     {
-       return $this->model->findOrFail($id);
-    }
-
-    public function loadRelations($entity): void
-    {
-        $entity->load(static::RELATIONS);
+       return $this->model::query()->with($this->relations)->findOrFail($id);
     }
 }

@@ -11,7 +11,6 @@ class PortfolioService extends Service
 {
     use GetSidebar;
 
-    protected const RELATIONS = ['filters'];
     private $lastPortfoliosCount;
 
     public function __construct(Portfolio $portfolio)
@@ -25,11 +24,11 @@ class PortfolioService extends Service
     public function getPaginatePortfolios()
     {
         return $this->model->query()
-            ->with(self::RELATIONS)
+            ->with($this->relations)
             ->getOrPaginate($this->paginate);
     }
 
-    public function getLastPortfolios()
+    public function getLastPortfolios(): \Illuminate\Database\Eloquent\Collection
     {
         return $this->getLast($this->lastPortfoliosCount);
     }
