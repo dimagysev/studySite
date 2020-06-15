@@ -14,7 +14,7 @@ class FilterController extends SiteController
             ->where('alias', $filter)
             ->firstOrFail()->$entity()->with('filters')
             ->getOrPaginate(config('settings.'.$entity.'.paginate'));
-        if ($entities[0] instanceof Article) $entities->load('user', 'comments');
+        if ($entities->first() instanceof Article) $entities->load('user', 'comments');
         $this->data = array_merge($this->data, [$entity => $entities]);
         return $this->renderOutput();
     }
