@@ -19,7 +19,7 @@
             <p class="author"><span>by <a href="#" title="Posts by {{ $article->user->name }}" rel="author">{{ $article->user->name }}</a></span></p>
             <p class="categories">
                 <span>In:
-                    @if($article->filters->count() > 0)
+                    @if(!$article->filters->isEmpty())
                         @foreach($article->filters as $filter)
                         <a href="{{ route('filters', ['alias'=>$filter->alias, 'entity'=>$article->getTable()])}}" title="{{$filter->title}}" rel="category tag">{{$filter->title}}</a>
                             {{ $article->filters->isLast($filter) ? '' : ',' }}
@@ -29,7 +29,7 @@
                     @endif
                 </span>
             </p>
-            <p class="comments"><span><a href="{{$article->getUrlShow()}}#comments" title="{{ $article->title }}">{{ count($article->comments) > 0 ? count($article->comments) :'No comments'}}</a></span></p>
+            <p class="comments"><span><a href="{{$article->getUrlShow()}}#comments" title="{{ $article->title }}">{{ count($comments) > 0 ? count($comments) :'No comments'}}</a></span></p>
         </div>
         <!-- post content -->
         <div class="the-content single group">
@@ -49,7 +49,7 @@
     <!-- START COMMENTS -->
     <div id="comments">
         <h3 id="comments-title">
-            <span>{{ count($article->comments) }}</span> comments
+            <span>{{ count($comments) }}</span> comments
         </h3>
         <ol class="commentlist group" id = 'comments-container'>
             @if(!$comments->isEmpty())

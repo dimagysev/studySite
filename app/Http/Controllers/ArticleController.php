@@ -22,7 +22,7 @@ class ArticleController extends SiteController
         $this->metaKeywords = config('settings.articles.key');
 
         $this->data['portfoliosSidebar'] = $this->portfolioService->getSidebar();
-        $this->data['commentsSidebar'] = $this->commentService->getSidebar();
+        $this->data['commentsSidebar'] = $this->commentService->setRelations(['user', 'article'])->getSidebar();
         parent::__construct();
 
     }
@@ -30,7 +30,9 @@ class ArticleController extends SiteController
     public function index($category = null)
     {
         $this->routeName = 'articles.index';
-        $articles = $this->articleService->getPaginateArticles($category);
+        $articles = $this->articleService
+            ->setRelations(['filters', 'comments','user'])
+            ->getPaginateArticles($category);
         $this->data = array_merge($this->data, [
             'articles' => $articles
         ]);
@@ -39,9 +41,8 @@ class ArticleController extends SiteController
 
     public function show($alias)
     {
-        $article = $this->articleService->getByAlias($alias);
-        $this->articleService->loadRelations($article);
-        $comments = $this->commentService->getCommentsByArticle($article);
+        $article = $this->articleService->setRelations(['filters', 'user'])->getByAlias($alias);
+        $comments = $this->commentService->setRelations(['user'])->getCommentsByArticle($article);
         $this->title = $article->title;
         $this->metaDescription = $article->meta_desc;
         $this->metaKeywords = $article->meta_key;

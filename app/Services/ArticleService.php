@@ -12,8 +12,6 @@ class ArticleService extends Service
 {
     use GetSidebar;
 
-    protected const RELATIONS = ['filters', 'user', 'comments', 'category'];
-
     public function __construct(Article $article)
     {
         $this->model = $article;
@@ -31,14 +29,14 @@ class ArticleService extends Service
     public function getArticles($perPage = false)
     {
         return $this->model::query()
-            ->with(self::RELATIONS)
+            ->with($this->relations)
             ->getOrPaginate($perPage);
     }
 
     public function getArticlesByCategory($category, $perPage = false)
     {
         return $this->model::query()
-            ->with(self::RELATIONS)
+            ->with($this->relations)
             ->whereHas('category', function (Builder $query) use($category){
                 $query->where('alias', $category);
             })
