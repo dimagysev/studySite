@@ -26,6 +26,14 @@ Route::prefix('contacts')->name('contacts.')->group(function (){
 
 Route::post('/comment', 'CommentController@addComment')->name('comments.add');
 
-Route::fallback(function () {
-    return view(config('settings.THEME').'.errors.404');
+Route::name('auth.')->namespace('Auth')->group(function (){
+    Route::get('/login', 'LoginController@showLoginForm')->name('login');
+    Route::post('/login', 'LoginController@login')->name('login');
+    Route::get('/logout', 'LoginController@logout')->name('logout');
+});
+
+Route::prefix('super')->middleware('auth')->group(function (){
+    Route::get('/', function (){
+       echo 'test';
+    });
 });

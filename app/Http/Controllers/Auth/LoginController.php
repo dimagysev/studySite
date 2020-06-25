@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+
+use App\Http\Controllers\SiteController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
-class LoginController extends Controller
+class LoginController extends SiteController
 {
     /*
     |--------------------------------------------------------------------------
@@ -36,5 +39,23 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        parent::__construct();
+    }
+
+    public function showLoginForm()
+    {
+        return $this->renderOutput();
+    }
+
+    public function username()
+    {
+        return 'login';
+    }
+
+    protected function loggedOut(Request $request)
+    {
+        return $request->wantsJson()
+            ? new Response('', 204)
+            : redirect()->route('auth.login');
     }
 }
