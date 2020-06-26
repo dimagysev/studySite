@@ -60,4 +60,21 @@ class User extends Authenticatable
     {
         return $this->id === $article->user_id;
     }
+
+    public function adminlte_image()
+    {
+        $hash = md5(strtolower(trim($this->email)));
+        $size = 160;
+        return 'https://www.gravatar.com/avatar/' . $hash . '?d=mm&s=' . $size;
+    }
+
+    public function adminlte_desc()
+    {
+        return 'That\'s a nice guy';
+    }
+
+    public function adminlte_profile_url()
+    {
+        return 'profile/username';
+    }
 }

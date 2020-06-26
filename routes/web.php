@@ -29,11 +29,16 @@ Route::post('/comment', 'CommentController@addComment')->name('comments.add');
 Route::name('auth.')->namespace('Auth')->group(function (){
     Route::get('/login', 'LoginController@showLoginForm')->name('login');
     Route::post('/login', 'LoginController@login')->name('login');
-    Route::get('/logout', 'LoginController@logout')->name('logout');
+    Route::post('/logout', 'LoginController@logout')->name('logout');
 });
 
-Route::prefix('super')->middleware('auth')->group(function (){
-    Route::get('/', function (){
-       echo 'test';
-    });
+Route
+    ::prefix(config('settings.admin_path'))
+    ->namespace('Admin')
+    ->name('admin.')
+    ->middleware('auth')
+    ->group(function (){
+
+    Route::get('/', 'IndexController@index')->name('home.index');
+
 });

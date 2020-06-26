@@ -1,6 +1,7 @@
 <?php
 return  [
-    'THEME' => env("THEME"),
+    'THEME' => env("THEME", 'pinc'),
+    'admin_path' => env('ADMIN_PATH', 'super'),
     'unknown_user_avatar_small' => 'users/unknow55.png',
     'unknown_user_avatar' => 'users/unknow.png',
     'home' => [
