@@ -6,7 +6,7 @@
     <h1>Dashboard</h1>
 @stop
 
-{{--@section('plugins.Datatables', true)--}}
+@section('plugins.Datatables', true)
 
 @section('content')
     @include(config('settings.THEME').'.'.$routeName.'-content')
@@ -17,8 +17,19 @@
 @stop
 
 @section('js')
-    <script> console.log('test'); </script>
+    <script>
+        /*$(document).ready( function () {
+            $('#table_id').DataTable({
+                searching: false,
+                elect: true,
+                paging: false,
+                "processing": true,
+
+            });
+        } );*/
+    </script>
 @stop
 @section('footer')
     <p>Welcome to this beautiful admin panel.</p>
 @stop
+

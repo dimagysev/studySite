@@ -32,13 +32,29 @@ Route::name('auth.')->namespace('Auth')->group(function (){
     Route::post('/logout', 'LoginController@logout')->name('logout');
 });
 
-Route
-    ::prefix(config('settings.admin_path'))
-    ->namespace('Admin')
-    ->name('admin.')
-    ->middleware('auth')
-    ->group(function (){
+Route::prefix(config('settings.admin_path'))->namespace('Admin')
+    ->name('admin.')->middleware('auth')->group(function (){
 
     Route::get('/', 'IndexController@index')->name('home.index');
+
+    Route::name('articles.')->prefix('articles')->group(function (){
+        Route::get('/', 'ArticleController@index')->name('index');
+        Route::get('/create', 'ArticleController@create')->name('create');
+        Route::post('/', 'ArticleController@store')->name('store');
+        Route::get('/{alias}', 'ArticleController@show')->name('show');
+        Route::get('/{alias}/edit', 'ArticleController@edit')->name('edit');
+        Route::put('/{alias}', 'ArticleController@update')->name('update');
+        Route::delete('/{alias}', 'ArticleController@destroy')->name('destroy');
+    });
+
+    Route::name('portvfolios.')->prefix('portfolios')->group(function (){
+        Route::get('/', 'PortfolioController@index')->name('index');
+        Route::get('/create', 'PortfolioController@create')->name('create');
+        Route::post('/', 'PortfolioController@store')->name('store');
+        Route::get('/{alias}', 'PortfolioController@show')->name('show');
+        Route::get('/{alias}/edit', 'PortfolioController@edit')->name('edit');
+        Route::put('/{alias}', 'PortfolioController@update')->name('update');
+        Route::delete('/{alias}', 'PortfolioController@destroy')->name('destroy');
+    });
 
 });

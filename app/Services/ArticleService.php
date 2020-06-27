@@ -26,14 +26,14 @@ class ArticleService extends Service
             : $this->getArticles($this->paginate);
     }
 
-    public function getArticles($perPage = false)
+    public function getArticles( ?int $perPage)
     {
         return $this->model::query()
             ->with($this->relations)
             ->getOrPaginate($perPage);
     }
 
-    public function getArticlesByCategory($category, $perPage = false)
+    public function getArticlesByCategory(string $category, ?int $perPage)
     {
         return $this->model::query()
             ->with($this->relations)

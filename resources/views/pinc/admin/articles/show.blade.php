@@ -6,8 +6,6 @@
     <h1>Dashboard</h1>
 @stop
 
-{{--@section('plugins.Datatables', true)--}}
-
 @section('content')
     @include(config('settings.THEME').'.'.$routeName.'-content')
 @stop
@@ -17,8 +15,10 @@
 @stop
 
 @section('js')
-    <script> console.log('test'); </script>
+
 @stop
 @section('footer')
     <p>Welcome to this beautiful admin panel.</p>
 @stop
+
+
