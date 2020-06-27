@@ -40,4 +40,9 @@ abstract class SiteController extends Controller
         return view($this->template, $this->data);
     }
 
+    protected function setData(array $data)
+    {
+        $this->data = array_merge($this->data, $data);
+    }
+
 }

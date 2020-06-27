@@ -13,13 +13,14 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+{{--    <link rel="stylesheet" href="/css/admin_custom.css">--}}
 @stop
 
 @section('js')
     <script>
         $(document).ready(function() {
             $('#filters').select2();
+            $('#category').select2();
             $('#prev-text').summernote({
                 placeholder: 'Hello Bootstrap 4',
                 tabsize: 2,

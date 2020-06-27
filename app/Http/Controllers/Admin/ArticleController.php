@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\SiteController;
+use App\Models\Category;
+use App\Models\Filter;
 use App\Services\ArticleService;
 use Illuminate\Http\Request;
 
@@ -26,6 +28,9 @@ class ArticleController extends SiteController
 
     public function create()
     {
+        $categories = Category::query()->select('id', 'title')->get();
+        $filters = Filter::query()->select('id', 'title')->get();
+        $this->setData(compact('categories','filters'));
         return $this->renderOutput();
     }
 
