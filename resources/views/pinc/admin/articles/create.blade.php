@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>{{ __('pincrio.create_article') }}</h1>
 @stop
 
 @section('plugins.Datatables', true)
@@ -18,15 +18,19 @@
 
 @section('js')
     <script>
-        /*$(document).ready( function () {
-            $('#table_id').DataTable({
-                searching: false,
-                elect: true,
-                paging: false,
-                "processing": true,
-
+        $(document).ready(function() {
+            $('#filters').select2();
+            $('#prev-text').summernote({
+                placeholder: 'Hello Bootstrap 4',
+                tabsize: 2,
+                height: 350
             });
-        } );*/
+            $('#full-text').summernote({
+                placeholder: 'Hello Bootstrap 4',
+                tabsize: 2,
+                height: 350
+            });
+        });
     </script>
 @stop
 @section('footer')
