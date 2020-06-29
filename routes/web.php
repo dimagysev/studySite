@@ -47,7 +47,7 @@ Route::prefix(config('settings.admin_path'))->namespace('Admin')
         Route::delete('/{alias}', 'ArticleController@destroy')->name('destroy');
     });
 
-    Route::name('portvfolios.')->prefix('portfolios')->group(function (){
+    Route::name('portfolios.')->prefix('portfolios')->group(function (){
         Route::get('/', 'PortfolioController@index')->name('index');
         Route::get('/create', 'PortfolioController@create')->name('create');
         Route::post('/', 'PortfolioController@store')->name('store');

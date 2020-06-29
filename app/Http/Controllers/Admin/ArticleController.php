@@ -6,13 +6,17 @@ use App\Http\Controllers\SiteController;
 use App\Models\Category;
 use App\Models\Filter;
 use App\Services\ArticleService;
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
 
 class ArticleController extends SiteController
 {
-    public function __construct(ArticleService $articleService)
+    public function __construct(ArticleService $articleService,
+                                CategoryService $categoryService
+    )
     {
         $this->articleService = $articleService;
+        $this->categoryService = $categoryService;
         parent::__construct();
     }
 
@@ -22,16 +26,21 @@ class ArticleController extends SiteController
             ->setRelations(['user', 'category'])
             ->setPaginate(3)
             ->getPaginateArticles();
-        $this->data = array_merge($this->data, ['articles' => $articles]);
+        $this->setData(compact('articles'));
         return $this->renderOutput();
     }
 
     public function create()
     {
-        $categories = Category::query()->select('id', 'title')->get();
+        $categories = $this->categoryService->getCategoryTree();
         $filters = Filter::query()->select('id', 'title')->get();
         $this->setData(compact('categories','filters'));
         return $this->renderOutput();
+    }
+
+    public function store(Request $request)
+    {
+        dd($request->all());
     }
 
     public function show(string $alias)
@@ -39,7 +48,7 @@ class ArticleController extends SiteController
         $article = $this->articleService
             ->setRelations(['user', 'category', 'comments', 'filters'])
             ->getByAlias($alias);
-        $this->data = array_merge($this->data, ['article' => $article]);
+        $this->setData(compact('article'));
         return $this->renderOutput();
     }
 

@@ -50,7 +50,7 @@
             <div class="icon">
                 <i class="fas fa-file"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="{{ route('admin.articles.index') }}" class="small-box-footer">
                 {{ __('pincrio.more_info') }} <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -64,7 +64,7 @@
             <div class="icon">
                 <i class="fas fa-project-diagram"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="{{ route('admin.portfolios.index') }}" class="small-box-footer">
                 {{ __('pincrio.more_info') }} <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>

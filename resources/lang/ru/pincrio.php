@@ -16,9 +16,13 @@ return [
     'alias'             => 'Алиас',
     'category'          => 'Категория',
     'picture'           => 'Картинка',
-    'meta_desc'         => 'Мета описание',
+    'meta_desc'         => 'Описание',
     'meta_key'          => 'Ключевые слова',
-    'preview_text'      => 'Анонс',
-    'full_text'      => 'Текст',
-    'create_article'    => 'Cоздать статью'
+    'preview_text'      => 'Текст анонса',
+    'full_text'         => 'Текст',
+    'create_article'    => 'Cоздать статью',
+    'save'              => 'Сохранить',
+    'articles_attr'     => 'Аттрибуты',
+    'meta_data'         => 'Мета',
+    'choose_file'       => 'Выберите файл'
 ];

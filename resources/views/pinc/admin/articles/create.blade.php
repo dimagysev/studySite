@@ -13,7 +13,7 @@
 @stop
 
 @section('css')
-{{--    <link rel="stylesheet" href="/css/admin_custom.css">--}}
+    <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
 @section('js')
@@ -22,14 +22,16 @@
             $('#filters').select2();
             $('#category').select2();
             $('#prev-text').summernote({
-                placeholder: 'Hello Bootstrap 4',
                 tabsize: 2,
-                height: 350
+                height: 300
             });
             $('#full-text').summernote({
-                placeholder: 'Hello Bootstrap 4',
                 tabsize: 2,
-                height: 350
+                height: 300
+            });
+            $('.custom-file-input').on('input', function (event) {
+                let fileName = event.target.value.split('\\').reverse()[0];
+                $('.custom-file-label').text(fileName);
             });
         });
     </script>
