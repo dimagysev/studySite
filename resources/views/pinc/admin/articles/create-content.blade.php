@@ -1,3 +1,21 @@
+@if (!$errors->isEmpty())
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-ban"></i> {{__('pincrio.validation_error')}}</h5>
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+@if( session()->exists('status') )
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-check"></i>OK</h5>
+        {{__('pincrio.saved_successful')}}
+    </div>
+@endif
 <form method="post" enctype="multipart/form-data" action="{{ route('admin.articles.store') }}">
     @csrf
     <div class="card">
@@ -11,22 +29,23 @@
                 <div class="col-md-6">
                     <div class="card card-info">
                         <div class="card-header">
-                            <h3 class="card-title">{{__('pincrio.articles_attr')}}</h3>
+                            <h3 class="card-title">{{__('pincrio.general')}}</h3>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="title">{{ __('pincrio.title') }}</label>
-                                <input type="text" name="title" id="title" class="form-control">
+                                <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="alias">{{ __('pincrio.alias') }}</label>
-                                <input type="text" name="alias" id="alias" class="form-control">
+                                <input type="text" name="alias" id="alias" class="form-control" value="{{ old('alias') }}">
                             </div>
 
                             <div class="form-group">
-                                <label for="category">{{ __('pincrio.category') }}</label>
-                                <select name="category" id="category" class="form-control" style="width: 100%">
+                                <label for="category_id">{{ __('pincrio.category') }}</label>
+                                <select name="category_id" id="category_id" class="form-control" style="width: 100%">
+                                    <option>Выберите категорию</option>
                                     @if(isset($categories) && !empty($categories))
                                         @foreach($categories as $category)
                                             @include('components.pinc.build-category.category-item', compact('category'))
@@ -71,13 +90,13 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="meta_desc">{{ __('pincrio.meta_desc') }}</label>
-                                        <textarea class="form-control" name="meta_desc" id="meta_desc" cols="30" rows="7"></textarea>
+                                        <textarea class="form-control" name="meta_desc" id="meta_desc" cols="30" rows="7">{{ old('meta_desc') }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="meta_key">{{ __('pincrio.meta_key') }}</label>
-                                        <textarea class="form-control" name="meta_key" id="meta_key" cols="30" rows="6"></textarea>
+                                        <textarea class="form-control" name="meta_key" id="meta_key" cols="30" rows="6">{{ old('meta_key') }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +111,7 @@
                             <h3 class="card-title">{{ __('pincrio.preview_text') }}</h3>
                         </div>
                         <div class="card-body">
-                            <textarea name="desc" id="prev-text"></textarea>
+                            <textarea name="desc" id="prev-text">{{ old('desc') }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -102,7 +121,7 @@
                             <h3 class="card-title">{{ __('pincrio.full_text') }}</h3>
                         </div>
                         <div class="card-body">
-                            <textarea name="text" id="full-text"></textarea>
+                            <textarea name="text" id="full-text">{{ old('text') }}</textarea>
                         </div>
                     </div>
                 </div>

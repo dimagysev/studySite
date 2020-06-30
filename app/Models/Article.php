@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Traits\Models\AppModelScopes;
 use App\Traits\Models\ImgAccessor;
 use App\Traits\Models\GetUrl;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -27,9 +28,20 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Article extends Model
 {
-    use AppModelScopes, GetUrl, ImgAccessor;
+    use AppModelScopes, GetUrl, ImgAccessor, Sluggable;
 
     protected $table = 'articles';
+    protected $fillable = [
+        'title',
+        'alias',
+        'text',
+        'desc',
+        'img',
+        'user_id',
+        'category_id',
+        'meta_desc',
+        'meta_key'
+    ];
 
     public function category()
     {
@@ -49,5 +61,14 @@ class Article extends Model
     public function filters()
     {
         return $this->morphToMany(Filter::class, 'filterable');
+    }
+
+    public function sluggable()
+    {
+        return [
+            'alias' => [
+                'source' => 'title'
+            ]
+        ];
     }
 }

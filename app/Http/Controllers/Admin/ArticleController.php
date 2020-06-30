@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\SiteController;
+use App\Http\Requests\ArticleStoreRequest;
+use App\Models\Article;
 use App\Models\Category;
 use App\Models\Filter;
 use App\Services\ArticleService;
 use App\Services\CategoryService;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 
 class ArticleController extends SiteController
@@ -38,9 +41,12 @@ class ArticleController extends SiteController
         return $this->renderOutput();
     }
 
-    public function store(Request $request)
+    public function store(ArticleStoreRequest $request)
     {
-        dd($request->all());
+        if (!$this->articleService->createArticle($request->validated()) instanceof  Article){
+            throw new \Exception('Something wrong', 500);
+        }
+        return redirect()->back()->with('status', 'success');
     }
 
     public function show(string $alias)
@@ -50,6 +56,15 @@ class ArticleController extends SiteController
             ->getByAlias($alias);
         $this->setData(compact('article'));
         return $this->renderOutput();
+    }
+
+    public function createAlias(Request $request)
+    {
+        if ($request->ajax()){
+            $alias = SlugService::createSlug(Article::class, 'alias', $request->title);
+            return response()->json(['alias' => $alias]);
+        }
+        return abort(404);
     }
 
 

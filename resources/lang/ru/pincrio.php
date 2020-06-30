@@ -23,6 +23,9 @@ return [
     'create_article'    => 'Cоздать статью',
     'save'              => 'Сохранить',
     'articles_attr'     => 'Аттрибуты',
-    'meta_data'         => 'Мета',
-    'choose_file'       => 'Выберите файл'
+    'meta_data'         => 'Мета данные',
+    'choose_file'       => 'Выберите файл',
+    'general'           => 'Основное',
+    'validation_error'  => 'Ошибка валидации',
+    'saved_successful'  => 'Успешно сохранено',
 ];

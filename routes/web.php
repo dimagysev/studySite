@@ -45,6 +45,7 @@ Route::prefix(config('settings.admin_path'))->namespace('Admin')
         Route::get('/{alias}/edit', 'ArticleController@edit')->name('edit');
         Route::put('/{alias}', 'ArticleController@update')->name('update');
         Route::delete('/{alias}', 'ArticleController@destroy')->name('destroy');
+        Route::post('/create_alias', 'ArticleController@createAlias')->name('createAlias');
     });
 
     Route::name('portfolios.')->prefix('portfolios')->group(function (){
@@ -55,6 +56,7 @@ Route::prefix(config('settings.admin_path'))->namespace('Admin')
         Route::get('/{alias}/edit', 'PortfolioController@edit')->name('edit');
         Route::put('/{alias}', 'PortfolioController@update')->name('update');
         Route::delete('/{alias}', 'PortfolioController@destroy')->name('destroy');
+        Route::post('/create_alias', 'PortfolioController@createAlias')->name('createAlias');
     });
 
 });

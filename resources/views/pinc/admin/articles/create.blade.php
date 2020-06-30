@@ -20,18 +20,36 @@
     <script>
         $(document).ready(function() {
             $('#filters').select2();
+
             $('#category').select2();
+
             $('#prev-text').summernote({
                 tabsize: 2,
                 height: 300
             });
+
             $('#full-text').summernote({
                 tabsize: 2,
                 height: 300
             });
+
             $('.custom-file-input').on('input', function (event) {
                 let fileName = event.target.value.split('\\').reverse()[0];
                 $('.custom-file-label').text(fileName);
+            });
+
+            $('#title').change(function () {
+                if ($(this).val()) {
+                    $.post('{{ route('admin.articles.createAlias') }}',
+                        {
+                            '_token': $('meta[name=csrf-token]').attr('content'),
+                            'title': $(this).val()
+                        },
+                        data => $('#alias').val(data.alias),
+                    );
+                } else {
+                    $('#alias').val('');
+                }
             });
         });
     </script>
