@@ -18,15 +18,21 @@
 
 @section('js')
     <script>
-        /*$(document).ready( function () {
-            $('#table_id').DataTable({
-                searching: false,
-                elect: true,
-                paging: false,
-                "processing": true,
+        $(document).ready( function () {
+            $('.delete-material').on('click', function (event) {
 
+                event.preventDefault();
+
+                $('#modal-danger').modal('show');
+                const formName = $(this).attr('data-form');
+
+                $('.delete-confirm').on('click', function () {
+                    $('#modal-danger').modal('hide');
+                    $('form[name='+formName+']').submit();
+                });
             });
-        } );*/
+
+        } );
     </script>
 @stop
 @section('footer')

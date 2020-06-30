@@ -21,6 +21,7 @@ return [
     'preview_text'      => 'Текст анонса',
     'full_text'         => 'Текст',
     'create_article'    => 'Cоздать статью',
+    'edit_article'      => 'Редактировать статью',
     'save'              => 'Сохранить',
     'articles_attr'     => 'Аттрибуты',
     'meta_data'         => 'Мета данные',
@@ -28,4 +29,5 @@ return [
     'general'           => 'Основное',
     'validation_error'  => 'Ошибка валидации',
     'saved_successful'  => 'Успешно сохранено',
+    'delete_successful' => 'Успешно удалено',
 ];
