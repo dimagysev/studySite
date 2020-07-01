@@ -51,10 +51,10 @@ trait StoreImages
         $imageName = ($width && $height)
             ? $width. 'x' . $height . '-' . $this->image->getClientOriginalName()
             : $this->image->getClientOriginalName();
-        $savePath = config('settings.THEME').'/images/' . $this->model->getTable() . '/' . $imageName;
-        ($width && $height)
-            ? Image::make($this->image)->resize($width, $height)->save($savePath)
-            : Image::make($this->image)->save($savePath);
+        $path = $this->image->storeAs('images/'.$this->model->getTable(), $imageName, 'public');
+        if($width && $height) {
+            Image::make(public_path('storage/' . $path))->fit($width, $height)->save();
+        }
         return $imageName;
     }
 

@@ -17,7 +17,7 @@
 @stop
 
 @section('js')
-    {{--<script>
+    <script>
         $(document).ready(function() {
             $('#filters').select2();
 
@@ -52,7 +52,7 @@
                 }
             });
         });
-    </script>--}}
+    </script>
 @stop
 @section('footer')
     <p>Welcome to this beautiful admin panel.</p>

@@ -10,7 +10,7 @@
 
                 <div class="portfolios hentry work group">
                     <div class="work-thumbnail">
-                        <a class="thumb"><img src="{{asset(config('settings.THEME'))}}/images/{{$portfolio->img->max}}" alt="{{ $portfolio->title }}" title="{{ $portfolio->title }}" /></a>
+                        <a class="thumb"><img src="{{ asset('storage') }}/images/{{$portfolio->img->max}}" alt="{{ $portfolio->title }}" title="{{ $portfolio->title }}" /></a>
                     </div>
                     <div class="work-description">
                         {!! $portfolio->text !!}
@@ -37,7 +37,7 @@
                 <div class="portfolio-full-description-related-projects">
                     @foreach($otherPortfolios as $portfolio)
                         <div class="related_project">
-                            <a class="related_proj related_img" href="{{ $portfolio->getUrlShow() }}" title="{{ $portfolio->title }}"><img src="{{asset(config('settings.THEME'))}}/images/{{ $portfolio->img->mini}}" alt="{{ $portfolio->title }}" title="{{ $portfolio->title }}" /></a>
+                            <a class="related_proj related_img" href="{{ $portfolio->getUrlShow() }}" title="{{ $portfolio->title }}"><img src="{{asset('storage')}}/images/{{ $portfolio->img->mini}}" alt="{{ $portfolio->title }}" title="{{ $portfolio->title }}" /></a>
                             <h4><a href="{{ $portfolio->getUrlShow() }}">{{ $portfolio->title }}</a></h4>
                         </div>
                     @endforeach

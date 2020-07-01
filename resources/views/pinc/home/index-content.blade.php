@@ -5,7 +5,7 @@
             <h3 class="title">{{ __('pincrio.latest_projects') }}</h3>
             <div class="hentry work group portfolio-sticky portfolio-full-description">
                 <div class="work-thumbnail">
-                    <a class="thumb"><img src="{{asset(env('THEME'))}}/images/{{ $lastOnePortfolio->img->max }}" alt="{{$lastOnePortfolio->title}}" title="{{$lastOnePortfolio->title}}" /></a>
+                    <a class="thumb"><img src="{{ asset('storage') }}/images/{{ $lastOnePortfolio->img->max }}" alt="{{$lastOnePortfolio->title}}" title="{{$lastOnePortfolio->title}}" /></a>
                     <div class="work-overlay">
                         <h3><a href="{{ $lastOnePortfolio->getUrlShow()}}">{{$lastOnePortfolio->title}}</a></h3>
                         <p class="work-overlay-categories"><img src="{{asset(env('THEME'))}}/images/categories.png" alt="Categories" />in:
@@ -34,9 +34,9 @@
                 <div class="{{ ($key + 1) % 4 === 0 ? 'related_project_last' : ''}} related_project">
                     <div class="overlay_a related_img">
                         <div class="overlay_wrapper">
-                            <img src="{{ asset(env('THEME'))}}/images/{{ $portfolio->img->mini }}" alt="{{ $portfolio->title }}" title="{{ $portfolio->title }}" />
+                            <img src="{{ asset('storage') }}/images/{{ $portfolio->img->mini }}" alt="{{ $portfolio->title }}" title="{{ $portfolio->title }}" />
                             <div class="overlay">
-                                <a class="overlay_img" href="{{ asset(env('THEME'))}}/images/{{ $portfolio->img->path }}" rel="lightbox" title="{{ $portfolio->title }}"></a>
+                                <a class="overlay_img" href="{{ asset('storage') }}/images/{{ $portfolio->img->path }}" rel="lightbox" title="{{ $portfolio->title }}"></a>
                                 <a class="overlay_project" href="{{ $portfolio->getUrlShow() }}"></a>
                                 <span class="overlay_title">{{ $portfolio->title }}</span>
                             </div>

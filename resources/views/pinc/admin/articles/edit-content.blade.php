@@ -34,12 +34,12 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="title">{{ __('pincrio.title') }}</label>
-                                <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}">
+                                <input type="text" name="title" id="title" class="form-control" value="{{ $article->title }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="alias">{{ __('pincrio.alias') }}</label>
-                                <input type="text" name="alias" id="alias" class="form-control" value="{{ old('alias') }}">
+                                <input type="text" name="alias" id="alias" class="form-control" value="{{ $article->alias }}">
                             </div>
 
                             <div class="form-group">
@@ -90,13 +90,13 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="meta_desc">{{ __('pincrio.meta_desc') }}</label>
-                                        <textarea class="form-control" name="meta_desc" id="meta_desc" cols="30" rows="7">{{ old('meta_desc') }}</textarea>
+                                        <textarea class="form-control" name="meta_desc" id="meta_desc" cols="30" rows="7">{{ $article->meta_desc }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="meta_key">{{ __('pincrio.meta_key') }}</label>
-                                        <textarea class="form-control" name="meta_key" id="meta_key" cols="30" rows="6">{{ old('meta_key') }}</textarea>
+                                        <textarea class="form-control" name="meta_key" id="meta_key" cols="30" rows="6">{{ $article->meta_key }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +111,7 @@
                             <h3 class="card-title">{{ __('pincrio.preview_text') }}</h3>
                         </div>
                         <div class="card-body">
-                            <textarea name="desc" id="prev-text">{{ old('desc') }}</textarea>
+                            <textarea name="desc" id="prev-text">{{ $article->desc }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
                             <h3 class="card-title">{{ __('pincrio.full_text') }}</h3>
                         </div>
                         <div class="card-body">
-                            <textarea name="text" id="full-text">{{ old('text') }}</textarea>
+                            <textarea name="text" id="full-text">{{ $article->text }}</textarea>
                         </div>
                     </div>
                 </div>

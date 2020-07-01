@@ -56,10 +56,10 @@ class ArticleController extends SiteController
 
     public function edit($alias)
     {
-        $article = $this->articleService->setRelations([])->getByAlias($alias);
+        $article = $this->articleService->setRelations(['user', 'filters', 'category', 'comments'])->getByAlias($alias);
         $categories = $this->categoryService->getCategoryTree();
         $filters = Filter::query()->select('id', 'title')->get();
-        $this->setData(compact('categories','filters'));
+        $this->setData(compact('categories','filters', 'article'));
         return $this->renderOutput();
     }
 

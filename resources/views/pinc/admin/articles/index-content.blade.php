@@ -31,7 +31,7 @@
                         @foreach($articles as $article)
                         <tr>
                             <td>{{ $article->id }}</td>
-                            <td><img src="{{asset(config('settings.THEME'))}}/images/{{$article->img->mini}}" alt=""></td>
+                            <td><img src="{{ asset('storage') }}/images/{{$article->img->mini}}" alt=""></td>
                             <td>{{ $article->title }}</td>
                             <td>{{ $article->category->title }}</td>
                             <td>{{ $article->user->name }}</td>
