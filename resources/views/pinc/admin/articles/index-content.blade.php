@@ -9,9 +9,8 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Articles</h3>
                 <div class="card-tools">
-                    <a href="{{ route('admin.articles.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i>Добавить статью</a>
+                    <a href="{{ route('admin.articles.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{ __('pincrio.add_article') }}</a>
                 </div>
             </div>
             <div class="card-body">
@@ -49,7 +48,7 @@
                     </tbody>
                 </table>
                 @else
-                    Статей нет
+                {{__('pincrio.list_articles_empty')}}
                 @endif
             </div>
             <div class="card-footer">
@@ -64,17 +63,17 @@
     <div class="modal-dialog">
         <div class="modal-content bg-danger">
             <div class="modal-header">
-                <h4 class="modal-title">Danger Modal</h4>
+                <h4 class="modal-title">{{ __('pincrio.deleting_article') }}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>One fine body…</p>
+                <p>{{ __('pincrio.are_you_sure') }}</p>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-outline-light delete-confirm">Ok</button>
+                <button type="button" class="btn btn-outline-light" data-dismiss="modal">{{__('pincrio.cancel')}}</button>
+                <button type="button" class="btn btn-outline-light delete-confirm">{{__('pincrio.ok')}}</button>
             </div>
         </div>
         <!-- /.modal-content -->

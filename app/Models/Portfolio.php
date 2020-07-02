@@ -27,7 +27,7 @@ class Portfolio extends Model
     use AppModelScopes, GetUrl, ImgAccessor;
 
     protected $table = "portfolios";
-    //protected $touches= ['filters'];
+    protected $touches= ['filters'];
 
     public function filters()
     {

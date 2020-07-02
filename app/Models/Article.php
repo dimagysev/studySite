@@ -31,6 +31,7 @@ class Article extends Model
     use AppModelScopes, GetUrl, ImgAccessor, Sluggable;
 
     protected $table = 'articles';
+
     protected $fillable = [
         'title',
         'alias',

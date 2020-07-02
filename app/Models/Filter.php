@@ -17,6 +17,7 @@ class Filter extends Model
 {
     protected $table = 'filters';
     public $timestamps = false;
+    protected $touches= ['articles', 'portfolios'];
 
     public function portfolios()
     {

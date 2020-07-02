@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>{{ __('pincrio.articles_list') }}</h1>
+    <h1>{{ __('pincrio.portfolios_list') }}</h1>
 @stop
 
 @section('content')
@@ -36,4 +36,5 @@
 @section('footer')
     <p>Welcome to this beautiful admin panel.</p>
 @stop
+
 

@@ -1,4 +1,4 @@
-<option value="{{ $category->id }}">{{ $category->title }}</option>
+<option {{ (isset($article->category) && $category->id === $article->category->id) ? 'selected' : ''}} value="{{ $category->id }}">{{ $category->title }}</option>
 @if (isset($category->child) && !empty($category->child))
     <optgroup label="{{ $category->title }}">
         @foreach($category->child as $child)

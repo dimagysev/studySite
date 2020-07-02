@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Traits\Services\Crud;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 

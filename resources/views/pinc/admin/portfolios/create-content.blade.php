@@ -18,7 +18,6 @@
 @endif
 <form method="post" enctype="multipart/form-data" action="{{ route('admin.articles.store') }}">
     @csrf
-    <input type="hidden" name="user_id" value="{{auth()->id()}}">
     <div class="card">
         <div class="card-header">
             <div class="card-tools">

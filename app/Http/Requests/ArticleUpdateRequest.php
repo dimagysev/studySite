@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class ArticleStoreRequest extends FormRequest
+class ArticleUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,6 +29,7 @@ class ArticleStoreRequest extends FormRequest
             unset($this['filters']);
         }
     }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -37,13 +39,12 @@ class ArticleStoreRequest extends FormRequest
     {
         return [
             'title'         => 'required|string|max:255|',
-            'alias'         => 'required|max:255|unique:articles',
-            'img'           => 'required|file|image|mimes:jpeg,png',
+            'alias'         => 'required|max:255|unique:articles,alias,' . $this->post('id'),
+            'img'           => 'sometimes|file|image|mimes:jpeg,png',
             'category_id'   => 'required',
-            'user_id'       => 'required',
             'filters'       => 'sometimes|required|array',
             'meta_desc'     => 'sometimes|required|string',
-            'meta_key'      =>'sometimes|required|string',
+            'meta_key'      => 'sometimes|required|string',
             'desc'          => 'required|string',
             'text'          => 'required|string',
         ];
