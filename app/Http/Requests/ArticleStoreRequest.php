@@ -37,7 +37,7 @@ class ArticleStoreRequest extends FormRequest
     {
         return [
             'title'         => 'required|string|max:255|',
-            'alias'         => 'required|max:255|unique:articles',
+            'alias'         => 'required|string|max:255|unique:articles',
             'img'           => 'required|file|image|mimes:jpeg,png',
             'category_id'   => 'required',
             'user_id'       => 'required',

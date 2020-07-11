@@ -71,6 +71,7 @@ class ArticleController extends SiteController
                 ->route('admin.articles.edit', ['alias'=>$request->alias])
                 ->with('status', 'ok');
         }
+        return abort(500);
     }
 
     public function show(string $alias)

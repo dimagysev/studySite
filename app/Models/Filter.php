@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -15,8 +16,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Filter extends Model
 {
+    use Sluggable;
+
     protected $table = 'filters';
-    public $timestamps = false;
+    //public $timestamps = false;
+    protected $fillable = ['title', 'alias'];
     protected $touches= ['articles', 'portfolios'];
 
     public function portfolios()
@@ -29,5 +33,13 @@ class Filter extends Model
         return $this->morphedByMany(Article::class,'filterable');
     }
 
+    public function sluggable()
+    {
+        return [
+            'alias' => [
+                'source' => 'title'
+            ]
+        ];
+    }
 
 }

@@ -12,6 +12,7 @@ abstract class SiteController extends Controller
     protected $articleService;
     protected $commentService;
     protected $categoryService;
+    protected $filterServices;
     protected $routeName;
 
     protected $template = '';

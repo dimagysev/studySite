@@ -50,4 +50,8 @@ Route::prefix(config('settings.admin_path'))->namespace('Admin')
         //sliders
         Route::resource('sliders', 'SliderController')->except('show');
 
+        //filters
+        Route::resource('filters', 'FilterController')->parameters(['filters' => 'alias'])->except('show');
+        Route::post('/filters/create_alias', 'FilterController@createAlias')->name('filters.createAlias');
+
 });

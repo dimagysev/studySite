@@ -10,32 +10,30 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-tools">
-                    <a href="{{ route('admin.sliders.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{ __('pincrio.add_slide') }}</a>
+                    <a href="{{ route('admin.filters.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{ __('pincrio.add_filter') }}</a>
                 </div>
             </div>
             <div class="card-body">
-                @if( isset($sliders) && !empty($sliders))
+                @if( isset($filters) && !empty($filters))
                     <table class="table table-hover">
                         <thead>
                         <tr>
                             <th>{{ __('pincrio.id') }}</th>
-                            <th>{{ __('pincrio.image') }}</th>
                             <th>{{ __('pincrio.title') }}</th>
-                            <th>{{ __('pincrio.text') }}</th>
+                            <th>{{ __('pincrio.alias') }}</th>
                             <th>{{ __('pincrio.action') }}</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($sliders as $slide)
+                        @foreach($filters as $filter)
                             <tr>
-                                <td>{{ $slide->id }}</td>
-                                <td><img style="width: 300px;" src="{{ asset('storage') }}/images/{{$slide->img}}" alt=""></td>
-                                <td>{{ $slide->title }}</td>
-                                <td>{{ $slide->desc }}</td>
+                                <td>{{ $filter->id }}</td>
+                                <td>{{ $filter->title }}</td>
+                                <td>{{ $filter->alias }}</td>
                                 <td>
-                                    <a href="{{ route('admin.sliders.edit', ['slider' => $slide->id]) }}" class="btn btn-primary mt-1 pl-3 pr-3"><i class="fas fa-edit"></i></a>
-                                    <a href="{{ route('admin.sliders.destroy', ['slider' => $slide->id]) }}" data-form = "form-{{ $slide->id }}"  class="btn btn-danger delete-material mt-1 pl-3 pr-3"><i class="fas fa-trash"></i></a>
-                                    <form action="{{ route('admin.sliders.destroy', ['slider' => $slide->id]) }}" name="form-{{ $slide->id }}" method="post">
+                                    <a href="{{ route('admin.filters.edit', ['alias' => $filter->alias]) }}" class="btn btn-primary mt-1 pl-3 pr-3"><i class="fas fa-edit"></i></a>
+                                    <a href="{{ route('admin.filters.destroy', ['alias' => $filter->alias]) }}" data-form = "form-{{ $filter->alias }}"  class="btn btn-danger delete-material mt-1 pl-3 pr-3"><i class="fas fa-trash"></i></a>
+                                    <form action="{{ route('admin.filters.destroy', ['alias' => $filter->alias]) }}" name="form-{{ $filter->alias }}" method="post">
                                         @method('delete')
                                         @csrf
                                     </form>
@@ -45,7 +43,7 @@
                         </tbody>
                     </table>
                 @else
-                    {{ __('pincrio.list_sliders_empty') }}
+                    {{ __('pincrio.list_filters_empty') }}
                 @endif
             </div>
         </div>
@@ -55,7 +53,7 @@
     <div class="modal-dialog">
         <div class="modal-content bg-danger">
             <div class="modal-header">
-                <h4 class="modal-title">{{ __('pincrio.deleting_slide') }}</h4>
+                <h4 class="modal-title">{{ __('pincrio.deleting_filter') }}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
