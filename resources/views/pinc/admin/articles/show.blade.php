@@ -15,7 +15,9 @@
 @stop
 
 @section('js')
+    <script>
 
+    </script>
 @stop
 @section('footer')
     <p>Welcome to this beautiful admin panel.</p>

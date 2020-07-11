@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeSlidersTable extends Migration
+class ChangeSlidersTable2 extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,8 @@ class ChangeSlidersTable extends Migration
     public function up()
     {
         Schema::table('sliders', function (Blueprint $table) {
-            $table
-                ->enum('text_position', ['left','right', 'none'])
-                ->default('none')
-                ->after('desc');
+            $table->string('desc', 255)->nullable()->change();
+            $table->text('title')->nullable()->change();
         });
     }
 
@@ -29,7 +27,7 @@ class ChangeSlidersTable extends Migration
     public function down()
     {
         Schema::table('sliders', function (Blueprint $table) {
-            $table->dropColumn('text_position');
+            //
         });
     }
 }

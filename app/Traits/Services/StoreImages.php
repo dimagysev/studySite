@@ -6,7 +6,6 @@ namespace App\Traits\Services;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 /**
@@ -44,6 +43,15 @@ trait StoreImages
     public function storeOriginal() :string
     {
         return $this->storeImg();
+    }
+
+    public function saveJsonImg()
+    {
+        return json_encode([
+            'mini'  => $this->storeMin(),
+            'max'   => $this->storeMax(),
+            'path'  => $this->storeOriginal()
+        ]);
     }
 
     protected function storeImg(?int $width = null, ?int $height = null) : string

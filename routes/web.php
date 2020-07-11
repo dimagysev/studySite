@@ -35,28 +35,19 @@ Route::name('auth.')->namespace('Auth')->group(function (){
 Route::prefix(config('settings.admin_path'))->namespace('Admin')
     ->name('admin.')->middleware('auth')->group(function (){
 
-    Route::get('/', 'IndexController@index')->name('home.index');
+        //home
+        Route::get('/', 'IndexController@index')->name('home.index');
 
-    Route::name('articles.')->prefix('articles')->group(function (){
-        Route::get('/', 'ArticleController@index')->name('index');
-        Route::get('/create', 'ArticleController@create')->name('create');
-        Route::post('/', 'ArticleController@store')->name('store');
-        Route::get('/{alias}', 'ArticleController@show')->name('show');
-        Route::get('/{alias}/edit', 'ArticleController@edit')->name('edit');
-        Route::put('/{alias}', 'ArticleController@update')->name('update');
-        Route::delete('/{alias}', 'ArticleController@destroy')->name('destroy');
-        Route::post('/create_alias', 'ArticleController@createAlias')->name('createAlias');
-    });
+        //articles
+        Route::resource('articles', 'ArticleController')->parameters(['articles' => 'alias']);
+        Route::post('/articles/create_alias', 'ArticleController@createAlias')->name('articles.createAlias');
 
-    Route::name('portfolios.')->prefix('portfolios')->group(function (){
-        Route::get('/', 'PortfolioController@index')->name('index');
-        Route::get('/create', 'PortfolioController@create')->name('create');
-        Route::post('/', 'PortfolioController@store')->name('store');
-        Route::get('/{alias}', 'PortfolioController@show')->name('show');
-        Route::get('/{alias}/edit', 'PortfolioController@edit')->name('edit');
-        Route::put('/{alias}', 'PortfolioController@update')->name('update');
-        Route::delete('/{alias}', 'PortfolioController@destroy')->name('destroy');
-        Route::post('/create_alias', 'PortfolioController@createAlias')->name('createAlias');
-    });
+        //portfolios
+        Route::get('/portfolios/get/related/portfolios', 'PortfolioController@related')->name('portfolios.related');
+        Route::post('/portfolios/create_alias', 'PortfolioController@createAlias')->name('portfolios.createAlias');
+        Route::resource('portfolios', 'PortfolioController')->parameters(['portfolios' => 'alias']);
+
+        //sliders
+        Route::resource('sliders', 'SliderController')->except('show');
 
 });

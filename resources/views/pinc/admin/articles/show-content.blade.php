@@ -39,11 +39,11 @@
                         </tr>
                         <tr>
                             <th>{{ __('pincrio.created_at') }}</th>
-                            <td>{{ $article->created_at->format('d.m.Y | h:i:s') }}</td>
+                            <td>{{ $article->created_at->translatedFormat('d.m.Y | H:i:s') }}</td>
                         </tr>
                         <tr>
                             <th>{{ __('pincrio.update_at') }}</th>
-                            <td>{{ !empty($article->updated_at) ? $article->updated_at->format('d.m.Y | h:i:s') : '-'}}</td>
+                            <td>{{ !empty($article->updated_at) ? $article->updated_at->translatedFormat('d.m.Y | H:i:s') : '-'}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -63,8 +63,8 @@
                     </div>
                 </nav>
 
-            <div class="card-body">
-                <div class="tab-content p-3" id="nav-tabContent">
+            <div class="card-body overflow-auto" style="height: 437px;">
+                <div class="tab-content p-3" id="nav-tabContent" >
                     <div class="tab-pane fade active show" id="article-desc" role="tabpanel" aria-labelledby="article-desc-tab">{!! $article->desc !!} </div>
                     <div class="tab-pane fade" id="article-full" role="tabpanel" aria-labelledby="article-full-tab">{!! $article->text !!}</div>
                     <div class="tab-pane fade" id="article-img" role="tabpanel" aria-labelledby="article-img-tab">
@@ -80,7 +80,7 @@
                                         <a href="#">{{ $comment->getAuthor() }}</a>
                                         <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
                                     </span>
-                                    <span class="description">{{ $comment->created_at->format('d.m.Y - h:i A') }}</span>
+                                    <span class="description">{{ $comment->created_at->translatedFormat('d.m.Y - H:i') }}</span>
                                 </div>
                                 <!-- /.user-block -->
                                 <p>{{ $comment->text }}</p>

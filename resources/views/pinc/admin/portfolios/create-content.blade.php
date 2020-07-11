@@ -16,7 +16,7 @@
         {{__('pincrio.saved_successful')}}
     </div>
 @endif
-<form method="post" enctype="multipart/form-data" action="{{ route('admin.articles.store') }}">
+<form method="post" enctype="multipart/form-data" action="{{ route('admin.portfolios.store') }}">
     @csrf
     <div class="card">
         <div class="card-header">
@@ -41,17 +41,9 @@
                                 <label for="alias">{{ __('pincrio.alias') }}</label>
                                 <input type="text" name="alias" id="alias" class="form-control" value="{{ old('alias') }}">
                             </div>
-
                             <div class="form-group">
-                                <label for="category_id">{{ __('pincrio.category') }}</label>
-                                <select name="category_id" id="category_id" class="form-control" style="width: 100%">
-                                    <option>Выберите категорию</option>
-                                    @if(isset($categories) && !empty($categories))
-                                        @foreach($categories as $category)
-                                            @include('components.pinc.build-category.category-item', compact('category'))
-                                        @endforeach
-                                    @endif
-                                </select>
+                                <label for="alias">{{ __('pincrio.customer') }}</label>
+                                <input type="text" name="customer" id="customer" class="form-control" value="{{ old('costumer') }}">
                             </div>
 
                             <div class="form-group">
@@ -62,6 +54,12 @@
                                             <option value="{{ $filter->id }}">{{ $filter->title }}</option>
                                         @endforeach
                                     @endif
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="related">{{ __('pincrio.portfolio_relations') }}</label>
+                                <select class="form-control" style="width: 100%" name="related[]" id="related" multiple="multiple" >
                                 </select>
                             </div>
 
@@ -90,13 +88,13 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="meta_desc">{{ __('pincrio.meta_desc') }}</label>
-                                        <textarea class="form-control" name="meta_desc" id="meta_desc" cols="30" rows="7">{{ old('meta_desc') }}</textarea>
+                                        <textarea class="form-control" name="meta_desc" id="meta_desc" cols="30" rows="8">{{ old('meta_desc') }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="meta_key">{{ __('pincrio.meta_key') }}</label>
-                                        <textarea class="form-control" name="meta_key" id="meta_key" cols="30" rows="6">{{ old('meta_key') }}</textarea>
+                                        <textarea class="form-control" name="meta_key" id="meta_key" cols="30" rows="8">{{ old('meta_key') }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -105,17 +103,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="card card-info">
-                        <div class="card-header">
-                            <h3 class="card-title">{{ __('pincrio.preview_text') }}</h3>
-                        </div>
-                        <div class="card-body">
-                            <textarea name="desc" id="prev-text">{{ old('desc') }}</textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="card card-info">
                         <div class="card-header">
                             <h3 class="card-title">{{ __('pincrio.full_text') }}</h3>

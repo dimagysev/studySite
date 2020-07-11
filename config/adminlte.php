@@ -270,7 +270,7 @@ return [
         ],
         [
             'text'        => 'slider',
-            'url'         => env('ADMIN_PATH').'/slider',
+            'url'         => env('ADMIN_PATH').'/sliders',
             'icon'        => 'fa fa-fw fa-camera',
         ],
         ['header' => 'account_settings'],

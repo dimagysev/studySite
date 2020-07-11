@@ -15,35 +15,31 @@
                     <tbody>
                         <tr>
                             <th>{{ __('pincrio.title') }}</th>
-                            <td>{{ $article->title }}</td>
+                            <td>{{ $portfolio->title }}</td>
                         </tr>
                         <tr>
                             <th>{{ __('pincrio.alias') }}</th>
-                            <td>{{ $article->alias }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ __('pincrio.category') }}</th>
-                            <td>{{ $article->category->title }}</td>
+                            <td>{{ $portfolio->alias }}</td>
                         </tr>
                         <tr>
                             <th>{{ __('pincrio.filters') }}</th>
                             <td>
-                                @foreach($article->filters as $filter)
-                                    {{ $filter->title }}{{$article->filters->isLast($filter) ? '' : ','}}
+                                @foreach($portfolio->filters as $filter)
+                                    {{ $filter->title }}{{$portfolio->filters->isLast($filter) ? '' : ','}}
                                 @endforeach
                             </td>
                         </tr>
                         <tr>
-                            <th>{{ __('pincrio.author') }}</th>
-                            <td>{{ $article->user->name }}</td>
+                            <th>{{ __('pincrio.customer') }}</th>
+                            <td>{{ $portfolio->customer }}</td>
                         </tr>
                         <tr>
                             <th>{{ __('pincrio.created_at') }}</th>
-                            <td>{{ $article->created_at->format('d.m.Y | h:i:s') }}</td>
+                            <td>{{ $portfolio->created_at->translatedFormat('d.m.Y | H:i:s') }}</td>
                         </tr>
                         <tr>
                             <th>{{ __('pincrio.update_at') }}</th>
-                            <td>{{ !empty($article->updated_at) ? $article->updated_at->format('d.m.Y | h:i:s') : '-'}}</td>
+                            <td>{{ !empty($portfolio->updated_at) ? $portfolio->updated_at->translatedFormat('d.m.Y | H:i:s') : '-'}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -52,55 +48,46 @@
     </div>
     <div class="col-md-6">
         <div class="card">
-
-                <nav class="w-100">
-                    <div class="nav nav-tabs" id="product-tab" role="tablist">
-                        <a class="nav-item nav-link active" id="article-desc-tab" data-toggle="tab" href="#article-desc" role="tab" aria-controls="article-desc" aria-selected="true">{{ __('pincrio.preview_text') }}</a>
-                        <a class="nav-item nav-link" id="product-full-tab" data-toggle="tab" href="#article-full" role="tab" aria-controls="article-full" aria-selected="false">{{__('pincrio.full_text')}}</a>
-                        <a class="nav-item nav-link" id="product-img-tab" data-toggle="tab" href="#article-img" role="tab" aria-controls="article-img" aria-selected="false">{{ __('pincrio.image') }}</a>
-                        <a class="nav-item nav-link" id="product-img-tab" data-toggle="tab" href="#article-comments" role="tab" aria-controls="article-comments" aria-selected="false">{{ __('pincrio.comments') }}</a>
-                        <a class="nav-item nav-link" id="product-img-tab" data-toggle="tab" href="#article-meta" role="tab" aria-controls="article-meta" aria-selected="false">{{ __('pincrio.meta_data') }}</a>
-                    </div>
-                </nav>
-
-            <div class="card-body">
+            <nav class="w-100">
+                <div class="nav nav-tabs" id="product-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="portfolio-img-tab" data-toggle="tab" href="#portfolio-img" role="tab" aria-controls="portfolio-img" aria-selected="false">{{ __('pincrio.image') }}</a>
+                    <a class="nav-item nav-link" id="portfolio-full-tab" data-toggle="tab" href="#portfolio-full" role="tab" aria-controls="portfolio-full" aria-selected="false">{{__('pincrio.full_text')}}</a>
+                    <a class="nav-item nav-link" id="portfolio-meta-tab" data-toggle="tab" href="#portfolio-meta" role="tab" aria-controls="portfolio-meta" aria-selected="false">{{ __('pincrio.meta_data') }}</a>
+                    <a class="nav-item nav-link" id="portfolio-related-tab" data-toggle="tab" href="#portfolio-related" role="tab" aria-controls="portfolio-related" aria-selected="false">{{ __('pincrio.portfolio_relations') }}</a>
+                </div>
+            </nav>
+            <div class="card-body overflow-auto" style="height: 385px;">
                 <div class="tab-content p-3" id="nav-tabContent">
-                    <div class="tab-pane fade active show" id="article-desc" role="tabpanel" aria-labelledby="article-desc-tab">{!! $article->desc !!} </div>
-                    <div class="tab-pane fade" id="article-full" role="tabpanel" aria-labelledby="article-full-tab">{!! $article->text !!}</div>
-                    <div class="tab-pane fade" id="article-img" role="tabpanel" aria-labelledby="article-img-tab">
-                        <img src="{{asset('storage')}}/images/{{$article->img->max}}" class="w-100">
+                    <div class="tab-pane fade active show" id="portfolio-img" role="tabpanel" aria-labelledby="portfolio-img-tab">
+                        <img src="{{asset('storage')}}/images/{{ $portfolio->img->max }}" class="w-100">
                     </div>
-                    <div class="tab-pane fade" id="article-comments" role="tabpanel" aria-labelledby="article-comments-tab">
-                        @if($article->comments->isNotEmpty())
-                            @foreach($article->comments as $comment)
-                            <div class="post">
-                                <div class="user-block">
-                                    <img class="img-circle img-bordered-sm" src="{{$comment->getUserAvatar('small')}}" alt="user image">
-                                    <span class="username">
-                                        <a href="#">{{ $comment->getAuthor() }}</a>
-                                        <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                                    </span>
-                                    <span class="description">{{ $comment->created_at->format('d.m.Y - h:i A') }}</span>
-                                </div>
-                                <!-- /.user-block -->
-                                <p>{{ $comment->text }}</p>
-                            </div>
-                            @endforeach
-                        @else
-                            {{ __('pincrio.no_comments') }}
-                        @endif
-
-                    </div>
-                    <div class="tab-pane fade" id="article-meta" role="tabpanel" aria-labelledby="article-meta-tab">
+                    <div class="tab-pane fade" id="portfolio-full" role="tabpanel" aria-labelledby="portfolio-full-tab">{!! $portfolio->text !!}</div>
+                    <div class="tab-pane fade" id="portfolio-meta" role="tabpanel" aria-labelledby="portfolio-meta-tab">
                         <strong>{{ __('pincrio.meta_desc') }}</strong>
                         <p class="text-muted">
-                            {{ $article->meta_desc ?? '-'}}
+                            {{ $portfolio->meta_desc ?? '-'}}
                         </p>
                         <hr>
                         <strong>{{ __('pincrio.meta_key') }}</strong>
                         <p class="text-muted">
-                            {{ $article->meta_key ?? '-'}}
+                            {{ $portfolio->meta_key ?? '-'}}
                         </p>
+                    </div>
+                    <div class="tab-pane fade" id="portfolio-related" role="tabpanel" aria-labelledby="portfolio-related-tab">
+                        @if( $portfolio->relatedPortfolios->isNotEmpty())
+                        <table class="table table-hover">
+                            <tbody>
+                                @foreach($portfolio->relatedPortfolios as $related)
+                                <tr>
+                                    <td><img src="{{ asset('storage')}}/images/{{ $related->img->mini }}" alt="" style="width: 70px"></td>
+                                    <td><a href="{{ route('admin.portfolios.show', ['alias' => $related->alias]) }}">{{ $related->title }}</a></td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @else
+                            {{ __('pincrio.portfolio_relations_empty') }}
+                        @endif
                     </div>
                 </div>
             </div>

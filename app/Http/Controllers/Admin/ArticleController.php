@@ -18,9 +18,9 @@ class ArticleController extends SiteController
                                 CategoryService $categoryService
     )
     {
+        parent::__construct();
         $this->articleService = $articleService;
         $this->categoryService = $categoryService;
-        parent::__construct();
     }
 
     public function index()

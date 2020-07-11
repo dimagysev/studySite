@@ -46,7 +46,6 @@
                             <div class="form-group">
                                 <label for="category_id">{{ __('pincrio.category') }}</label>
                                 <select name="category_id" id="category_id" class="form-control" style="width: 100%">
-                                    <option>Выберите категорию</option>
                                     @if(isset($categories) && !empty($categories))
                                         @foreach($categories as $category)
                                             @include('components.pinc.build-category.category-item', compact('category'))

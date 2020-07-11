@@ -5,16 +5,14 @@ namespace App\Services;
 
 
 use App\Models\Article;
-use App\Traits\Services\Crud;
 use App\Traits\Services\GetSidebar;
-use App\Traits\Services\StoreImages;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class ArticleService extends Service
 {
-    use GetSidebar/*, StoreImages*/, Crud;
+    use GetSidebar;
 
     public function __construct(Article $article)
     {
@@ -51,49 +49,60 @@ class ArticleService extends Service
             ->getOrPaginate($perPage);
     }
 
-    /*    public function createArticle(array $data)
-        {
-            $this->image = $data['img'];
+    public function create(array $data, callable $callback = null)
+    {
+        if (is_callable($callback)){
+            return parent::create($data, $callback);
+        }
+
+        return parent::create($data, function ($data) {
+
+            $data['img'] = $this->saveJsonImg();
             $filters = Arr::pull($data, 'filters');
-            $data['img'] = json_encode([
-                'mini'  => $this->storeMin(),
-                'max'   => $this->storeMax(),
-                'path'  => $this->storeOriginal()
-            ]);
-            $data['user_id'] = auth()->id();
+
             return DB::transaction(function () use ($data, $filters){
-                $article = $this->model::query()->create($data);
+                $article = $this->model->query()->create($data);
                 $article->filters()->attach($filters);
                 return $article;
             }, config('settings.transaction_attempts'));
+
+        });
+    }
+
+    public function update(string $alias, array $data, bool $id = false, callable $callback = null)
+    {
+        if (is_callable($callback)){
+            return parent::update($alias,  $data, $id, $callback);
         }
 
-        public function updateArticle(string $alias, array $data)
-        {
-            if (request()->has('img')){
-                $this->image = $data['img'];
-                $data['img'] = json_encode([
-                    'mini'  => $this->storeMin(),
-                    'max'   => $this->storeMax(),
-                    'path'  => $this->storeOriginal()
-                ]);
+        return parent::update($alias, $data, $id, function ($data, $entity){
+
+            if(request()->has('img')){
+                $data['img'] = $this->saveJsonImg();
             }
+
             $filters = Arr::pull($data, 'filters');
-            $article = $this->getByAlias($alias);
-            return DB::transaction(function () use ($data, $article, $filters){
-                $updated = $article->update($data);
-                $article->filters()->sync($filters);
+
+            return DB::transaction(function () use ($data, $entity, $filters){
+                $updated = $entity->update($data);
+                $entity->filters()->sync($filters);
                 return $updated;
             }, config('settings.transaction_attempts'));
+        });
+    }
+
+    public function delete(string $alias, bool $id = false, callable $callback = null)
+    {
+        if (is_callable($callback)){
+            return parent::delete($alias, $id ,$callback);
         }
 
-        public function deleteArticle($alias)
-        {
-            $article = $this->getByAlias($alias);
-            $filtersId = $article->filters->pluck('id')->all();
-            DB::transaction(function () use($article, $filtersId){
-                $article->filters()->detach($filtersId);
-                return $article->delete();
+        parent::delete($alias, $id, function ($entity){
+            DB::transaction(function () use($entity){
+                $entity->filters()->detach();
+                return $entity->delete();
             }, config('settings.transaction_attempts'));
-        }*/
+        });
+    }
+
 }

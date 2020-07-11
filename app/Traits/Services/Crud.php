@@ -4,55 +4,47 @@
 namespace App\Traits\Services;
 
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\Callable_;
 
 trait Crud
 {
     use StoreImages;
 
-    public function create(array $data)
-    {
-        $this->image = $data['img'];
-        $filters = Arr::pull($data, 'filters');
-        $data['img'] = json_encode([
-            'mini'  => $this->storeMin(),
-            'max'   => $this->storeMax(),
-            'path'  => $this->storeOriginal()
-        ]);
-        return DB::transaction(function () use ($data, $filters){
-            $entity = $this->model::query()->create($data);
-            $entity->filters()->attach($filters);
-            return $entity;
-        }, config('settings.transaction_attempts'));
-    }
-
-    public function update(string $alias, array $data)
+    public function create(array $data, callable $callback = null)
     {
         if (request()->has('img')){
             $this->image = $data['img'];
-            $data['img'] = json_encode([
-                'mini'  => $this->storeMin(),
-                'max'   => $this->storeMax(),
-                'path'  => $this->storeOriginal()
-            ]);
+            $data['img'] = $this->storeMax();
         }
-        $filters = Arr::pull($data, 'filters');
-        $entity = $this->getByAlias($alias);
-        return DB::transaction(function () use ($data, $entity, $filters){
-            $updated = $entity->update($data);
-            $entity->filters()->sync($filters);
-            return $updated;
-        }, config('settings.transaction_attempts'));
+
+        if (is_callable($callback)){
+            return $callback($data);
+        }
+
+        return $this->model::query()->create($data);
     }
 
-    public function delete($alias)
+    public function update(string $alias, array $data, bool $id = false, callable $callback = null)
     {
-        $entity = $this->getByAlias($alias);
-        $filtersId = $entity->filters->pluck('id')->all();
-        DB::transaction(function () use($entity, $filtersId){
-            $entity->filters()->detach($filtersId);
-            return $entity->delete();
-        }, config('settings.transaction_attempts'));
+        if (request()->has('img')){
+            $this->image = $data['img'];
+            $data['img'] = $this->storeMax();
+        }
+
+        $entity = !$id ? $this->getByAlias($alias) : $this->getById($alias);
+
+        if (is_callable($callback)){
+            return $callback($data, $entity);
+        }
+        return $entity->update($data);
+    }
+
+    public function delete(string $alias, bool $id = false, callable $callback = null)
+    {
+        $entity = !$id ? $this->getByAlias($alias) : $this->getById($alias);
+        if (is_callable($callback)){
+            return $callback($entity);
+        }
+        return $entity->delete();
     }
 }

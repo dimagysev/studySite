@@ -8,7 +8,7 @@
                         <div class="nozoom">
                             <img src="{{ asset('storage') }}/images/{{$portfolio->img->max}}" alt="{{ $portfolio->title }}" title="{{ $portfolio->title }}" />
                             <div class="overlay">
-                                <a class="overlay_img" href="{{ asset(config('settings.THEME'))}}/images/{{$portfolio->img->path}}" rel="lightbox" title="{{ $portfolio->title }}"></a>
+                                <a class="overlay_img" href="{{ asset('storage') }}/images/{{$portfolio->img->path}}" rel="lightbox" title="{{ $portfolio->title }}"></a>
                                 <a class="overlay_project" href="{{$portfolio->getUrlShow()}}"></a>
                                 <span class="overlay_title">{{ $portfolio->title }}</span>
                             </div>

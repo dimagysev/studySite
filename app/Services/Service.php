@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 abstract class Service
 {
+    use Crud;
+
     protected $model;
     protected $paginate = 3;
     protected $relations = [];

@@ -3,10 +3,8 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>{{ __('pincrio.create_article') }}</h1>
+    <h1>{{ __('pincrio.create_portfolio') }}</h1>
 @stop
-
-@section('plugins.Datatables', true)
 
 @section('content')
     @include(config('settings.THEME').'.'.$routeName.'-content')
@@ -19,13 +17,35 @@
 @section('js')
     <script>
         $(document).ready(function() {
+
             $('#filters').select2();
 
-            $('#category').select2();
+            $('#related').select2({
+                minimumInputLength: 2,
+                ajax: {
 
-            $('#prev-text').summernote({
-                tabsize: 2,
-                height: 300
+                    dataType: 'json',
+                    delay: 250,
+                    url: '{{ route('admin.portfolios.related') }}',
+
+                    data: function (params) {
+                        return  {
+                            q: params.term,
+                        }
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data.data,
+                        };
+                    },
+                },
+
+                templateResult: function (res) {
+                    return $(
+                        `<span><img src="{{ asset('storage') }}/images/${res.img}" style="width:55px;"/>&nbsp;&nbsp;${res.text}</span>`
+                    );
+                }
+
             });
 
             $('#full-text').summernote({
@@ -40,7 +60,7 @@
 
             $('#title').change(function () {
                 if ($(this).val()) {
-                    $.post('{{ route('admin.articles.createAlias') }}',
+                    $.post('{{ route('admin.portfolios.createAlias') }}',
                         {
                             '_token': $('meta[name=csrf-token]').attr('content'),
                             'title': $(this).val()

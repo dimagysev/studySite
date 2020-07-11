@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>{{$article->title}}</h1>
+    <h1>{{$portfolio->title}}</h1>
 @stop
 
 @section('content')

@@ -61,11 +61,15 @@ class User extends Authenticatable
         return $this->id === $article->user_id;
     }
 
-    public function adminlte_image()
+    public function getAvatar(int $size = 100)
     {
         $hash = md5(strtolower(trim($this->email)));
-        $size = 160;
         return 'https://www.gravatar.com/avatar/' . $hash . '?d=mm&s=' . $size;
+    }
+
+    public function adminlte_image()
+    {
+        return $this->getAvatar(160);
     }
 
     public function adminlte_desc()
