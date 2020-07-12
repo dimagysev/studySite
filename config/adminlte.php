@@ -269,6 +269,11 @@ return [
             'icon'        => 'fa fa-fw fa-filter',
         ],
         [
+            'text'        => 'categories',
+            'url'         => env('ADMIN_PATH').'/categories',
+            'icon'        => 'fa fa-fw fa-book',
+        ],
+        [
             'text'        => 'slider',
             'url'         => env('ADMIN_PATH').'/sliders',
             'icon'        => 'fa fa-fw fa-camera',

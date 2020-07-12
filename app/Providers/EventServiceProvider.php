@@ -31,7 +31,8 @@ class EventServiceProvider extends ServiceProvider
         parent::boot();
 
             DB::listen(function ($query){
-                //echo "<h3>$query->sql</h3>";
+               // echo "<h3>$query->sql</h3>";
+                //dump( $query->bindings);
                 //echo "<span>".$query->time."</span><br>";
                 //dump($query->time);
 

@@ -62,6 +62,20 @@ return  [
      */
     'comments' => [
         'sidebar_count' => 3,
-    ]
+    ],
+
+    /*
+     * Filters settings
+     */
+    'filters' => [
+        'paginate' => 10,
+    ],
+
+    /*
+     * Categories settings
+     */
+    'categories' => [
+        'paginate' => 10,
+    ],
 ];
 ?>

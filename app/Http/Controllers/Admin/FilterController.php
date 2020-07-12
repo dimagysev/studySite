@@ -21,8 +21,12 @@ class FilterController extends SiteController
 
     public function index()
     {
-        $filters = $this->filterServices->getFilters();
+        $filters = $this->filterServices->getPaginateFilters();
         $this->setData(compact('filters'));
+        if ($filters->currentPage() > $filters->lastPage() ){
+            session()->reflash();
+            return redirect($filters->previousPageUrl());
+        }
         return $this->renderOutput();
     }
 

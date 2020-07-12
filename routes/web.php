@@ -54,4 +54,8 @@ Route::prefix(config('settings.admin_path'))->namespace('Admin')
         Route::resource('filters', 'FilterController')->parameters(['filters' => 'alias'])->except('show');
         Route::post('/filters/create_alias', 'FilterController@createAlias')->name('filters.createAlias');
 
+        //categories
+        Route::resource('categories', 'CategoryController')->parameters(['categories' => 'alias'])->except('show');
+        Route::post('/categories/create_alias', 'CategoryController@createAlias')->name('categories.createAlias');
+
 });

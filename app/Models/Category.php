@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\Models\AppModelScopes;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,10 +16,22 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Category extends Model
 {
+    use AppModelScopes, Sluggable;
+
     protected $table = 'categories';
+    protected $fillable = ['title', 'alias', 'parent_id'];
 
     public function articles()
     {
         return $this->hasMany(Article::class);
+    }
+
+    public function sluggable()
+    {
+        return [
+            'alias' => [
+                'source' => 'title'
+            ]
+        ];
     }
 }

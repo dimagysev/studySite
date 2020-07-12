@@ -1,3 +1,14 @@
+@if (!$errors->isEmpty())
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-ban"></i> {{__('pincrio.error')}}</h5>
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 @if( session()->exists('status') )
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -10,30 +21,32 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-tools">
-                    <a href="{{ route('admin.filters.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{ __('pincrio.add_filter') }}</a>
+                    <a href="{{ route('admin.categories.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> {{ __('pincrio.add_category') }}</a>
                 </div>
             </div>
             <div class="card-body">
-                @if( isset($filters) && !empty($filters))
+                @if( isset($categories) && !empty($categories))
                     <table class="table table-hover">
                         <thead>
                         <tr>
                             <th>{{ __('pincrio.id') }}</th>
                             <th>{{ __('pincrio.title') }}</th>
                             <th>{{ __('pincrio.alias') }}</th>
+                            <th>{{ __('pincrio.parent_category') }}</th>
                             <th>{{ __('pincrio.action') }}</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($filters as $filter)
+                        @foreach($categories as $category)
                             <tr>
-                                <td>{{ $filter->id }}</td>
-                                <td>{{ $filter->title }}</td>
-                                <td>{{ $filter->alias }}</td>
+                                <td>{{ $category->id }}</td>
+                                <td>{{ $category->title }}</td>
+                                <td>{{ $category->alias }}</td>
+                                <td>{{ $category->parent_title }}</td>
                                 <td>
-                                    <a href="{{ route('admin.filters.edit', ['alias' => $filter->alias]) }}" class="btn btn-primary mt-1 pl-3 pr-3"><i class="fas fa-edit"></i></a>
-                                    <a href="{{ route('admin.filters.destroy', ['alias' => $filter->alias]) }}" data-form = "form-{{ $filter->alias }}"  class="btn btn-danger delete-material mt-1 pl-3 pr-3"><i class="fas fa-trash"></i></a>
-                                    <form action="{{ route('admin.filters.destroy', ['alias' => $filter->alias]) }}" name="form-{{ $filter->alias }}" method="post">
+                                    <a href="{{ route('admin.categories.edit', ['alias' => $category->alias]) }}" class="btn btn-primary mt-1 pl-3 pr-3"><i class="fas fa-edit"></i></a>
+                                    <a href="{{ route('admin.categories.destroy', ['alias' => $category->alias]) }}" data-form = "form-{{ $category->alias }}"  class="btn btn-danger delete-material mt-1 pl-3 pr-3"><i class="fas fa-trash"></i></a>
+                                    <form action="{{ route('admin.categories.destroy', ['alias' => $category->alias]) }}" name="form-{{ $category->alias }}" method="post">
                                         @method('delete')
                                         @csrf
                                     </form>
@@ -42,9 +55,9 @@
                         @endforeach
                         </tbody>
                     </table>
-                    <div class="d-flex justify-content-center mt-2">
-                        {{ $filters->links() }}
-                    </div>
+                <div class="d-flex justify-content-center mt-2">
+                    {{ $categories->links() }}
+                </div>
                 @else
                     {{ __('pincrio.list_filters_empty') }}
                 @endif
@@ -56,7 +69,7 @@
     <div class="modal-dialog">
         <div class="modal-content bg-danger">
             <div class="modal-header">
-                <h4 class="modal-title">{{ __('pincrio.deleting_filter') }}</h4>
+                <h4 class="modal-title">{{ __('pincrio.deleting_category') }}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
