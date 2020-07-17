@@ -16,12 +16,12 @@ class FilterController extends SiteController
     public function __construct(FilterService $filterService)
     {
         parent::__construct();
-        $this->filterServices = $filterService;
+        $this->filterService = $filterService;
     }
 
     public function index()
     {
-        $filters = $this->filterServices->getPaginateFilters();
+        $filters = $this->filterService->getPaginateFilters();
         $this->setData(compact('filters'));
         if ($filters->currentPage() > $filters->lastPage() ){
             session()->reflash();
@@ -39,13 +39,13 @@ class FilterController extends SiteController
 
     public function store(FilterStoreRequest $request)
     {
-        $this->filterServices->create($request->validated());
+        $this->filterService->create($request->validated());
         return redirect()->back()->with('status', 'success');
     }
 
     public function edit($alias)
     {
-        $filter = $this->filterServices->getByAlias($alias);
+        $filter = $this->filterService->getByAlias($alias);
         $this->setData(compact('filter'));
         return $this->renderOutput();
     }
@@ -54,7 +54,7 @@ class FilterController extends SiteController
     public function update(FilterUpdateRequest $request, $alias)
     {
         $data = $request->validated();
-        if ($this->filterServices->update($alias, $data)){
+        if ($this->filterService->update($alias, $data)){
             return redirect()->route('admin.filters.edit', ['alias' => $data['alias']]);
         }
         return abort(500);
@@ -62,7 +62,7 @@ class FilterController extends SiteController
 
     public function destroy($alias)
     {
-        $this->filterServices->delete($alias);
+        $this->filterService->delete($alias);
         return redirect()->back()->with('status', 'success');
     }
 

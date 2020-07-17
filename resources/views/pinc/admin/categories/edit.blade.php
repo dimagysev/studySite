@@ -19,7 +19,7 @@
         $(document).ready(function () {
             $('#title').change(function () {
                 if ($(this).val()) {
-                    $.post('{{ route('admin.filters.createAlias') }}',
+                    $.post('{{ route('admin.categories.createAlias') }}',
                         {
                             '_token': $('meta[name=csrf-token]').attr('content'),
                             'title': $(this).val()
