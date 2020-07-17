@@ -58,6 +58,11 @@ Route::prefix(config('settings.admin_path'))->namespace('Admin')
         Route::resource('categories', 'CategoryController')->parameters(['categories' => 'alias'])->except('show');
         Route::post('/categories/create_alias', 'CategoryController@createAlias')->name('categories.createAlias');
 
+        //users
         Route::resource('users', 'UserController')->except('show');
+
+        //Profile
+        Route::get('profile/settings', 'ProfileController@edit')->name('profile.edit');
+        Route::put('profile/settings', 'ProfileController@update')->name('profile.update');
 
 });

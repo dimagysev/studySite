@@ -22,7 +22,7 @@
             <div class="icon">
                 <i class="fas fa-users"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="{{ route('admin.users.index') }}" class="small-box-footer">
                 {{ __('pincrio.more_info') }} <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -78,7 +78,7 @@
             <div class="icon">
                 <i class="fas fa-filter"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="{{ route('admin.filters.index') }}" class="small-box-footer">
                 {{ __('pincrio.more_info') }} <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -92,7 +92,7 @@
             <div class="icon">
                 <i class="fas fa-camera"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="{{ route('admin.sliders.index') }}" class="small-box-footer">
                 {{ __('pincrio.more_info') }} <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
