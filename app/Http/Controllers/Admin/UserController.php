@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\SiteController;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Models\Role;
 use App\Services\UserService;
 
 class UserController extends SiteController
@@ -25,6 +26,8 @@ class UserController extends SiteController
 
     public function create()
     {
+        $roles = Role::all();
+        $this->setData(compact('roles'));
         return $this->renderOutput();
     }
 

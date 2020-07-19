@@ -35,7 +35,7 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->login }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>Роль</td>
+                            <td>{{ $user->role->name}}</td>
                             <td>
                                 <a href="{{ route('admin.users.edit', ['user' => $user->id]) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                                 <a href="{{ route('admin.users.destroy', ['user' => $user->id]) }}" data-form = "{{ $user->id }}"  class="btn btn-danger delete-material"><i class="fas fa-trash"></i></a>
