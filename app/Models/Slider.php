@@ -18,4 +18,5 @@ class Slider extends Model
     use ImgAccessor;
 
     protected $table = 'sliders';
+    protected $fillable = ['title', 'desc', 'img', 'desc', 'text_position'];
 }

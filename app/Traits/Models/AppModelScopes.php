@@ -15,12 +15,22 @@ use Illuminate\Database\Eloquent\Collection;
  */
 trait AppModelScopes
 {
-    public function scopeLast(Builder $query, int $limit = null) : Builder
+    /**
+     * @param Builder $query
+     * @param int|null $limit
+     * @return Builder
+     */
+    public function scopeLast(Builder $query, ?int $limit) : Builder
     {
         return $query->orderBy('created_at', 'desc')->take($limit);
     }
 
-    public function scopeGetOrPaginate(Builder $query, $perPage)
+    /**
+     * @param Builder $query
+     * @param int|null $perPage
+     * @return \Illuminate\Database\Concerns\BuildsQueries|Builder|mixed
+     */
+    public function scopeGetOrPaginate(Builder $query, ?int $perPage)
     {
         return $query->when($perPage,
             function (Builder $query, $perPage){

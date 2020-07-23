@@ -43,10 +43,11 @@ class Comment extends Model
 
     public function getUserAvatar($small = '')
     {
-        $hash = $this->userIsLogIn()
-            ? md5(strtolower(trim($this->user->email)))
-            : md5(strtolower(trim($this->email)));
         $size = ($small === 'small') ? 55 : 75;
+        if ($this->userIsLogIn()){
+            return $this->user->getAvatar($size);
+        }
+        $hash = md5(strtolower(trim($this->email)));
         return 'https://www.gravatar.com/avatar/' . $hash . '?d=mm&s=' . $size;
     }
 

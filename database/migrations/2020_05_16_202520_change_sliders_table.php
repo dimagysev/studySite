@@ -15,7 +15,7 @@ class ChangeSlidersTable extends Migration
     {
         Schema::table('sliders', function (Blueprint $table) {
             $table
-                ->enum('text_position',['left','right', 'none'])
+                ->enum('text_position', ['left','right', 'none'])
                 ->default('none')
                 ->after('desc');
         });

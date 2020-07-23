@@ -6,5 +6,5 @@
 </x-slider>
 @endif
 <div class="mobile-slider">
-    <div class="slider fixed-image inner"><img src="{{asset(config('settings.THEME'))}}/images/sliders/cycle-fixed.jpg" alt="" /></div>
+    <div class="slider fixed-image inner"><img src="{{asset('storage')}}/images/sliders/cycle-fixed.jpg" alt="" /></div>
 </div>

@@ -3,10 +3,7 @@
 namespace App\Providers;
 
 
-
-use App\Article;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

@@ -7,6 +7,8 @@ namespace App\Services;
 use App\Models\Article;
 use App\Traits\Services\GetSidebar;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class ArticleService extends Service
 {
@@ -17,6 +19,10 @@ class ArticleService extends Service
         $this->model = $article;
         $this->sidebarCount = config('settings.articles.sidebar_count');
         $this->paginate = config('settings.articles.paginate');
+        $this->minHeight = config('settings.articles.img_min_height');
+        $this->minWidth = config('settings.articles.img_min_width');
+        $this->maxHeight = config('settings.articles.img_max_height');
+        $this->maxWidth = config('settings.articles.img_max_width');
     }
 
     public function getPaginateArticles(string $category = null)
@@ -26,14 +32,14 @@ class ArticleService extends Service
             : $this->getArticles($this->paginate);
     }
 
-    public function getArticles($perPage = false)
+    public function getArticles( ?int $perPage)
     {
         return $this->model::query()
             ->with($this->relations)
             ->getOrPaginate($perPage);
     }
 
-    public function getArticlesByCategory($category, $perPage = false)
+    public function getArticlesByCategory(string $category, ?int $perPage)
     {
         return $this->model::query()
             ->with($this->relations)
@@ -42,4 +48,61 @@ class ArticleService extends Service
             })
             ->getOrPaginate($perPage);
     }
+
+    public function create(array $data, callable $callback = null)
+    {
+        if (is_callable($callback)){
+            return parent::create($data, $callback);
+        }
+
+        return parent::create($data, function ($data) {
+
+            $data['img'] = $this->saveJsonImg();
+            $filters = Arr::pull($data, 'filters');
+
+            return DB::transaction(function () use ($data, $filters){
+                $article = $this->model->query()->create($data);
+                $article->filters()->attach($filters);
+                return $article;
+            }, config('settings.transaction_attempts'));
+
+        });
+    }
+
+    public function update(string $alias, array $data, bool $id = false, callable $callback = null)
+    {
+        if (is_callable($callback)){
+            return parent::update($alias,  $data, $id, $callback);
+        }
+
+        return parent::update($alias, $data, $id, function ($data, $entity){
+
+            if(request()->has('img')){
+                $data['img'] = $this->saveJsonImg();
+            }
+
+            $filters = Arr::pull($data, 'filters');
+
+            return DB::transaction(function () use ($data, $entity, $filters){
+                $updated = $entity->update($data);
+                $entity->filters()->sync($filters);
+                return $updated;
+            }, config('settings.transaction_attempts'));
+        });
+    }
+
+    public function delete(string $alias, bool $id = false, callable $callback = null)
+    {
+        if (is_callable($callback)){
+            return parent::delete($alias, $id ,$callback);
+        }
+
+        parent::delete($alias, $id, function ($entity){
+            DB::transaction(function () use($entity){
+                $entity->filters()->detach();
+                return $entity->delete();
+            }, config('settings.transaction_attempts'));
+        });
+    }
+
 }

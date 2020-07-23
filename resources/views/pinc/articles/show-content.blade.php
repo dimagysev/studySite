@@ -7,7 +7,7 @@
             <h1 class="post-title"><a href="#">{{ $article->title }}</a></h1>
             <!-- post featured -->
             <div class="image-wrap">
-                <img src="{{asset(config('settings.THEME'))}}/images/{{$article->img->max}}" alt="{{ $article->title }}" title="{{ $article->title }}" />
+                <img src="{{ asset('storage') }}/images/{{$article->img->max}}" alt="{{ $article->title }}" title="{{ $article->title }}" />
             </div>
             <p class="date">
                 <span class="month">{{ $article->created_at->format('M') }}</span>

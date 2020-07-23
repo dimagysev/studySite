@@ -29,11 +29,40 @@ Route::post('/comment', 'CommentController@addComment')->name('comments.add');
 Route::name('auth.')->namespace('Auth')->group(function (){
     Route::get('/login', 'LoginController@showLoginForm')->name('login');
     Route::post('/login', 'LoginController@login')->name('login');
-    Route::get('/logout', 'LoginController@logout')->name('logout');
+    Route::post('/logout', 'LoginController@logout')->name('logout');
 });
 
-Route::prefix('super')->middleware('auth')->group(function (){
-    Route::get('/', function (){
-       echo 'test';
-    });
+Route::prefix(config('settings.admin_path'))->namespace('Admin')
+    ->name('admin.')->middleware('auth')->group(function (){
+
+        //home
+        Route::get('/', 'IndexController@index')->name('home.index');
+
+        //articles
+        Route::resource('articles', 'ArticleController')->parameters(['articles' => 'alias']);
+        Route::post('/articles/create_alias', 'ArticleController@createAlias')->name('articles.createAlias');
+
+        //portfolios
+        Route::get('/portfolios/get/related/portfolios', 'PortfolioController@related')->name('portfolios.related');
+        Route::post('/portfolios/create_alias', 'PortfolioController@createAlias')->name('portfolios.createAlias');
+        Route::resource('portfolios', 'PortfolioController')->parameters(['portfolios' => 'alias']);
+
+        //sliders
+        Route::resource('sliders', 'SliderController')->except('show');
+
+        //filters
+        Route::resource('filters', 'FilterController')->parameters(['filters' => 'alias'])->except('show');
+        Route::post('/filters/create_alias', 'FilterController@createAlias')->name('filters.createAlias');
+
+        //categories
+        Route::resource('categories', 'CategoryController')->parameters(['categories' => 'alias'])->except('show');
+        Route::post('/categories/create_alias', 'CategoryController@createAlias')->name('categories.createAlias');
+
+        //users
+        Route::resource('users', 'UserController')->except('show');
+
+        //Profile
+        Route::get('profile/settings', 'ProfileController@edit')->name('profile.edit');
+        Route::put('profile/settings', 'ProfileController@update')->name('profile.update');
+
 });

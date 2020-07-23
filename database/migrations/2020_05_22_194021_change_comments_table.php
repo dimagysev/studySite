@@ -14,7 +14,7 @@ class ChangeCommentsTable extends Migration
     public function up()
     {
         Schema::table('comments', function (Blueprint $table) {
-            $table->foreignId('article_id')->default(1)->constrained('articles','id');
+            $table->foreignId('article_id')->default(0)->constrained('articles','id')->onDelete('cascade');
             $table->foreignId('user_id')->nullable(true)->constrained('users','id');
         });
     }

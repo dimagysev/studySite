@@ -11,6 +11,9 @@ abstract class SiteController extends Controller
     protected $sliderService;
     protected $articleService;
     protected $commentService;
+    protected $categoryService;
+    protected $filterService;
+    protected $userService;
     protected $routeName;
 
     protected $template = '';
@@ -38,6 +41,11 @@ abstract class SiteController extends Controller
         $this->data['routeName'] = $this->routeName;
         $this->template = config('settings.THEME').'.'.$this->routeName;
         return view($this->template, $this->data);
+    }
+
+    protected function setData(array $data)
+    {
+        $this->data = array_merge($this->data, $data);
     }
 
 }

@@ -10,7 +10,7 @@ class SliderService extends Service
 {
     public function __construct(Slider $slider)
     {
-        $this->model = $slider;
+        $this->model = $slider;;
     }
 
     public function getSlider()

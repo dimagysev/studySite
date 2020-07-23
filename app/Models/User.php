@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','login', 'role_id'
     ];
 
     /**
@@ -56,8 +56,34 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
     public function isAuthor(Article $article)
     {
         return $this->id === $article->user_id;
+    }
+
+    public function getAvatar(int $size = 100)
+    {
+        $hash = md5(strtolower(trim($this->email)));
+        return 'https://www.gravatar.com/avatar/' . $hash . '?d=mm&s=' . $size;
+    }
+
+    public function adminlte_image()
+    {
+        return $this->getAvatar(160);
+    }
+
+    public function adminlte_desc()
+    {
+        return 'That\'s a nice guy';
+    }
+
+    public function adminlte_profile_url()
+    {
+        return 'profile/username';
     }
 }

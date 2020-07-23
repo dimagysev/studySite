@@ -8,7 +8,7 @@
                 <h2 class="post-title"><a href="{{ $article->getUrlShow() }}">{{ $article->title }}</a></h2>
                 <!-- post featured -->
                 <div class="image-wrap">
-                    <img src="{{ asset(env('THEME'))}}/images/{{ $article->img->max }}" alt="{{$article->alias}}" title="{{$article->alias}}" />
+                    <img src="{{ asset('storage') }}/images/{{ $article->img->max }}" alt="{{$article->alias}}" title="{{$article->alias}}" />
                 </div>
                 <p class="date">
                     <span class="month">{{ $article->created_at->format('M') }}</span>
