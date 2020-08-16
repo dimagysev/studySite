@@ -249,6 +249,16 @@ return [
             'icon'        => 'fa fa-fw fa-users',
         ],
         [
+            'text'        => 'roles',
+            'url'         => env('ADMIN_PATH').'/roles',
+            'icon'        => 'fa fa-fw fa-user-tag',
+        ],
+        [
+            'text'        => 'permissions',
+            'url'         => env('ADMIN_PATH').'/permissions',
+            'icon'        => 'fa fa-fw fa-user-shield',
+        ],
+        [
             'text'        => 'menu',
             'url'         => env('ADMIN_PATH').'/menu',
             'icon'        => 'fa fa-fw fa-list',
@@ -302,7 +312,7 @@ return [
         JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\SearchFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\ActiveFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\SubmenuFilter::class,
+        //JeroenNoten\LaravelAdminLte\Menu\Filters\SubmenuFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\LangFilter::class,

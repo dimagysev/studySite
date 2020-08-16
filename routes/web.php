@@ -65,4 +65,10 @@ Route::prefix(config('settings.admin_path'))->namespace('Admin')
         Route::get('profile/settings', 'ProfileController@edit')->name('profile.edit');
         Route::put('profile/settings', 'ProfileController@update')->name('profile.update');
 
+        //Roles
+        Route::resource('roles', 'RoleController')->except('show');
+
+        //Permissions
+        Route::resource('permissions', 'PermissionController')->except('show');
+
 });

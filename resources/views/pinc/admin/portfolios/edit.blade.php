@@ -21,7 +21,7 @@
             $('#filters').select2();
 
             $('#related').select2({
-                minimumInputLength: 2,
+                minimumInputLength: 1,
                 ajax: {
 
                     dataType: 'json',

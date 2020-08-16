@@ -56,9 +56,9 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
-    public function role()
+    public function roles()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsToMany(Role::class);
     }
 
     public function isAuthor(Article $article)

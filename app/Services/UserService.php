@@ -5,6 +5,7 @@ namespace App\Services;
 
 
 use App\Models\User;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 
 class UserService extends Service
@@ -22,7 +23,10 @@ class UserService extends Service
     public function create(array $data, callable $callback = null)
     {
         $data['password'] = Hash::make($data['password']);
-        return parent::create($data, $callback);
+        $roles_id = Arr::pull($data, 'roles');
+        $user = parent::create($data, $callback);
+        $user->roles()->attach($roles_id);
+        return $user;
     }
 
     public function update(string $alias, array $data, bool $id = false, callable $callback = null)

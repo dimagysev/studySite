@@ -55,11 +55,13 @@
 
                             <div class="form-group">
                                 <label for="role_id">{{ __('pincrio.roles') }}</label>
-                                <select class="form-control" style="width: 100%" name="role_id" id="role" >
+                                <select class="form-control" style="width: 100%" name="roles[]" id="role" >
                                     @if ($roles->isNotEmpty())
-                                     @foreach($roles as $role)
-                                            <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                     @endforeach
+                                         @foreach($roles as $role)
+                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                         @endforeach
+                                    @else
+                                        <option>Список ролей пуст</option>
                                     @endif
                                 </select>
                             </div>

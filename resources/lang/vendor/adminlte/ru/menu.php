@@ -24,5 +24,6 @@ return [
     'comments'                      => 'Коментарии',
     'categories'                    => 'Категории',
     'slider'                        => 'Слайдер',
-
+    'roles'                         => 'Роли',
+    'permissions'                   => 'Права доступа'
 ];

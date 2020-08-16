@@ -1,6 +1,6 @@
 <div id="content-page" class="content group">
     <div class="hentry group">
-        @if (isset($portfolios) && !empty($portfolios))
+        @if (isset($portfolios) && $portfolios->isNotEmpty())
         <div id="portfolio" class="portfolio-big-image">
             @foreach($portfolios as $portfolio)
                 <div class="hentry work group">
@@ -38,6 +38,10 @@
         </div>
         <div class="clear"></div>
         {{ $portfolios->links('pinc.pagination') }}
+        @else
+            <div class="box info-box">
+                Нет материалов
+            </div>
         @endif
     </div>
 </div>

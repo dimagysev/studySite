@@ -51,7 +51,7 @@
                             <div class="form-group">
                                 <label for="filters">{{ __('pincrio.filters') }}</label>
                                 <select class="form-control" style="width: 100%" name="filters[]" id="filters" multiple="multiple" >
-                                    @if(isset($filters) && !empty($filters))
+                                    @if(isset($filters) && $filters->isNotEmpty())
                                         @foreach($filters as $filter)
                                             <option {{ (!empty($portfolio->filtersId) && in_array($filter->id, $portfolio->filtersId)) ? 'selected' : ''}} value="{{ $filter->id }}">{{ $filter->title }}</option>
                                         @endforeach

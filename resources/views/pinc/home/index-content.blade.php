@@ -1,6 +1,6 @@
 <div id="content-home" class="content group">
     <div class="hentry group">
-        @if (isset($lastPortfolios) && !empty($lastPortfolios))
+        @if (isset($lastPortfolios) && !empty($lastPortfolios) && !empty($lastOnePortfolio))
         <div class="section portfolio">
             <h3 class="title">{{ __('pincrio.latest_projects') }}</h3>
             <div class="hentry work group portfolio-sticky portfolio-full-description">
@@ -43,10 +43,14 @@
                         </div>
                     </div>
                     <h4><a href="{{ $portfolio->getUrlShow() }}">{{ $portfolio->title }}</a></h4>
-                    <p>{{ Str::limit($portfolio->text, 50) }}</p>
+                    {!!  Str::limit($portfolio->text, 50) !!}
                 </div>
                 @endforeach
             </div>
+            @else
+                <div class="box info-box">
+                    Нет материалов
+                </div>
             @endif
         </div>
         <div class="clear"></div>
