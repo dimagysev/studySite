@@ -15,7 +15,7 @@ class CreatePortfoliosRelationsTable extends Migration
     {
         Schema::create('portfolio-relation', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('portfolio_id')->constrained('portfolios','id');
+            $table->foreignId('portfolio_id')->constrained('portfolios','id')->onDelete('cascade');
             $table->foreignId('related_id')->constrained('portfolios','id')->onDelete('cascade');
             $table->timestamps();
         });

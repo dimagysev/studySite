@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="card-body">
-                @if( isset($sliders) && !empty($sliders))
+                @if( isset($sliders) && $sliders->isNotEmpty())
                     <table class="table table-hover">
                         <thead>
                         <tr>

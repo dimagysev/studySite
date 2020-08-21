@@ -33,7 +33,7 @@ Route::name('auth.')->namespace('Auth')->group(function (){
 });
 
 Route::prefix(config('settings.admin_path'))->namespace('Admin')
-    ->name('admin.')->middleware('auth')->group(function (){
+    ->name('admin.')/*->middleware('auth')*/->group(function (){
 
         //home
         Route::get('/', 'IndexController@index')->name('home.index');

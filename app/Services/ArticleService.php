@@ -49,46 +49,33 @@ class ArticleService extends Service
             ->getOrPaginate($perPage);
     }
 
-    public function create(array $data, callable $callback = null)
+    public function create(array $data)
     {
-        if (is_callable($callback)){
-            return parent::create($data, $callback);
-        }
+        $this->image = $data['img'];
+        $data['img'] = $this->saveJsonImg();
+        $filters = Arr::pull($data, 'filters');
 
-        return parent::create($data, function ($data) {
-
-            $data['img'] = $this->saveJsonImg();
-            $filters = Arr::pull($data, 'filters');
-
-            return DB::transaction(function () use ($data, $filters){
-                $article = $this->model->query()->create($data);
-                $article->filters()->attach($filters);
-                return $article;
-            }, config('settings.transaction_attempts'));
-
-        });
+        return DB::transaction(function () use ($data, $filters){
+            $article = parent::create($data);
+            $article->filters()->attach($filters);
+            return $article;
+        }, config('settings.transaction_attempts'));
     }
 
-    public function update(string $alias, array $data, bool $id = false, callable $callback = null)
+    public function update(string $alias, array $data, bool $id = false)
     {
-        if (is_callable($callback)){
-            return parent::update($alias,  $data, $id, $callback);
+        if (request()->has('img')){
+            $this->image = $data['img'];
+            $data['img'] = $this->saveJsonImg();
         }
 
-        return parent::update($alias, $data, $id, function ($data, $entity){
+        $filters = Arr::pull($data, 'filters');
 
-            if(request()->has('img')){
-                $data['img'] = $this->saveJsonImg();
-            }
-
-            $filters = Arr::pull($data, 'filters');
-
-            return DB::transaction(function () use ($data, $entity, $filters){
-                $updated = $entity->update($data);
-                $entity->filters()->sync($filters);
-                return $updated;
-            }, config('settings.transaction_attempts'));
-        });
+        return DB::transaction(function () use ($data, $alias, $id, $filters){
+            $article = parent::update($alias, $data, $id);
+            $article->filters()->sync($filters);
+            return $article;
+        }, config('settings.transaction_attempts'));
     }
 
     public function delete(string $alias, bool $id = false, callable $callback = null)

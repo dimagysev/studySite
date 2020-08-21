@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="card-body">
-                @if( isset($articles) && !empty($articles))
+                @if( isset($articles) && $articles->isNotEmpty())
                 <table class="table table-hover">
                     <thead>
                         <tr>

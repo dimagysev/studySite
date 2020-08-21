@@ -26,7 +26,11 @@ class CommentService extends Service
      */
     public function validate($data): array
     {
-        $rules = ['text' => 'required', 'parent_id' =>'integer|required', 'article_id' =>'integer|required'];
+        $rules = [
+            'text' => 'required',
+            'parent_id' =>'integer|required',
+            'article_id' =>'integer|required'
+        ];
         $sometimes = ['name' =>['required','string','max:255'], 'email' =>['required','email']];
         $validator = Validator::make($data, $rules);
         $validator->sometimes(['name', 'email'], $sometimes, function (){

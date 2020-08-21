@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="card-body">
-                @if( isset($categories) && !empty($categories))
+                @if( isset($categories) && $categories->isNotEmpty())
                     <table class="table table-hover">
                         <thead>
                         <tr>
