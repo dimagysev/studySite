@@ -6,6 +6,7 @@ use App\Traits\Models\ImgAccessor;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 
 
 /**
@@ -14,6 +15,7 @@ use Illuminate\Notifications\Notifiable;
  * @property string name
  * @property string email
  * @property int id
+ * @property Collection $roles
  */
 class User extends Authenticatable
 {
@@ -70,6 +72,11 @@ class User extends Authenticatable
     {
         $hash = md5(strtolower(trim($this->email)));
         return 'https://www.gravatar.com/avatar/' . $hash . '?d=mm&s=' . $size;
+    }
+
+    public function rolesNameToString()
+    {
+        return $str = $this->roles->implode('name', ', ');
     }
 
     public function adminlte_image()
