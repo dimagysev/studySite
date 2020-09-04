@@ -15,10 +15,8 @@ class ChangeArticlesTable extends Migration
     {
         Schema::table('articles', function (Blueprint $table) {
             $table->foreignId('user_id')
-                ->default(1)
                 ->constrained('users','id');
             $table->foreignId('category_id')
-                ->default(1)
                 ->constrained('categories', 'id');
         });
     }

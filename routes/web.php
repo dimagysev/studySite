@@ -12,7 +12,7 @@ Route::prefix('portfolios')->name('portfolios.')->group(function (){
 Route::prefix('articles')->name('articles.')->group(function (){
     Route::get('/', 'ArticleController@index')->name('index');
     Route::get('/{alias}', 'ArticleController@show')->name('show');
-    Route::prefix('cat')->name('cat.')->group(function (){
+    Route::prefix('category')->name('category.')->group(function (){
         Route::get('/{category}', 'ArticleController@index')->name('index');
     });
 });
@@ -33,7 +33,7 @@ Route::name('auth.')->namespace('Auth')->group(function (){
 });
 
 Route::prefix(config('settings.admin_path'))->namespace('Admin')
-    ->name('admin.')/*->middleware('auth')*/->group(function (){
+    ->name('admin.')->middleware('auth')->group(function (){
 
         //home
         Route::get('/', 'IndexController@index')->name('home.index');
